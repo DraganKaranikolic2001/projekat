@@ -8,9 +8,7 @@ function sizeImg()
     //console.log(width);
     //console.log(height);
     el.style.width=width+"px";
-    console.log(slika.style.width);
     el.style.height=height+"px";
-    console.log(slika.style.height);
     const ratio=16/9;
     //Ovo se odnosi na ratio 16:9 da uvek bude takkav kako god klijent namestio prozor(window)
     if((width/height)<ratio)
@@ -27,15 +25,49 @@ function sizeImg()
     
     
 }
-/*function resizeCards(){
+function sizeHistory()
+{
+    const el=document.getElementById("history");
+    const el1=document.getElementById("main-page");
+    const base = el1.clientHeight;
+    el.style.fontSize=(base*0.05)+"px";
+    /*const size= 50+"px";
+    if(parseFloat(el.style.fontSize) >parseFloat(size) )
+        el.style.fontSize=size;*/
+
+}
+function sizeText()
+{
+    const el2=document.getElementById("main-page");
+    const el= document.querySelectorAll(".gamble-info-label");
+    const el1= document.querySelectorAll(".gamble-info-amount");
+    const base = el2.clientHeight;
+
+    el.forEach(e=>{
+        e.style.fontSize=(base*0.03)+"px";
+    })
+    el1.forEach(e=>{
+        e.style.fontSize=(base*0.04)+"px";
+    })
+
+}
+
+function resizeCards(){
     const el1=document.getElementById("gamble-box-id");
-    el1.style.height=height*0.5;
-    el1.style.width=width*0.7;
+    const width=window.innerWidth;
+    const height=window.innerHeight;
+    el1.style.height=height*0.8;
+    el1.style.width=width*0.8;
 
-}*/
+}
 
-sizeImg();
+document.getElementById("magic-button").addEventListener("click", function(){
+    window.open("https://www.google.com","_blank","width=800,height=600,top=100,left=100")
+});
 
 window.addEventListener('resize',sizeImg);
-console.log(slika.style.width,slika.style.height);
+window.addEventListener('resize',sizeHistory);
+window.addEventListener('resize',resizeCards);
+window.addEventListener('resize',sizeText);
+
 

@@ -10,16 +10,36 @@
         <div class="gamble-page" id="main-page" style="width: 100%; height: 100%; position: absolute; pointer-events: all;">
             <img  id ="pictureGamble" src="images/gamble-background-min.png">
             <div class="top-side">
-                <p class="history-title">HISTORY:</p>
+                <p class="history-title" id="history">HISTORY:</p>
                 <div class="history-card" style="border: 4px solid darkgreen;"></div>
             </div>
              <div class="gamble-box" id="gamble-box-id">
                 <img class="gamble-card-stack"  id="gamble-card" src="images/gamble/black-min.png">
                 <img class="gamble-card-stack1" id="gamble-card" src="images/gamble/red-min.png">
-
+                <img class="gamble-card-stack2"  id="gamble-card" src="images/gamble/black-min.png">
+                <img class="gamble-card-stack3" id="gamble-card" src="images/gamble/red-min.png">
+                <img class="gamble-card-gif" id="gamble-gif" src = "images/gamble/redblack.gif">
             </div>
-        
+            <div class="gamble-info" id="gamble-info-id">
+                    <div class="gamble-column">
+                        <p class="gamble-info-label" id="attempts-lang">ATTEMPTS</p>
+                        <p class="gamble-info-amount" id="gamble-attempts">5</p>
 
+                    </div>
+                    <div class="gamble-column">
+                        <p class="gamble-info-label" id="gamble-win-lang">GAMBLE TO WIN</p>
+                        <p class="gamble-info-amount" id="gamble-to-win">28.00</p>
+                    </div>
+                    <div class="gamble-column">
+                        <p class="gamble-info-label" id="gamble-amount-lang">GAMBLE AMOUNT</p>
+                        <p class="gamble-info-amount" id="gamble-amount-to-win">14.00</p>
+                    </div>
+            </div>
+            <div class="gamble-button button middle" id="black-button">BLACK</div>
+            <div class="gamble-button button middle" id="red-button">RED</div>
+            <div class="info-button button middle" id="magic-button">
+                <i >i</i>
+            </div>
 
         
         </div>

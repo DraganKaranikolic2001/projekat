@@ -40,20 +40,104 @@ body{
     justify-content: center;
     text-align: center;
 }
-.gamble-card-stack, .gamble-card-stack1{
+.gamble-card-stack, .gamble-card-stack1, .gamble-card-stack2,.gamble-card-stack3, .gamble-card-gif{
     position: absolute;
     left:8%;
-    width: 70%;
+    width: 60%;
     height: 70%;
 }
 .gamble-card-stack1{
-    left: 16%;
+    left: 23%;
+}
+.gamble-card-stack2{
+    left: 37%;
+}
+.gamble-card-stack3{
+    left:52%;
+}
+.gamble-card-gif{
+    left: 150%;
 }
 .gamble-box{
     position: absolute;
-    top: 22.5%;
-    left: 0;
+    top: 23%;
+    left: 10%;
     margin: auto;
     padding: 3.5%;
+    width: 15%;
+    height: 35%; 
+}
+.gamble-info{
+    position: absolute;
+    bottom: 1%;
+    width: 57%;
+    height: 20%;
+    margin: 4%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.gamble-info-label{
+    color:red;
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+}
+.gamble-info-amount{
+    color: white;
+    font-size: 30px;
+    margin: 0;
+    padding: 0;
+}
+.gamble-column{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-bottom: 2px;
+}
+.button{
+    cursor: pointer;
+    outline: none;
+}
+.gamble-button,.info-button{
+    font-size: 3vh;
+    border-radius: 2vh;
+    border: 0.3vh solid white;
+    color:white;
+    
+
+}
+#black-button{
+    position: absolute;
+    bottom: 58%;
+    right: 13%;
+    height: 11.5%;
+    width: 15%;
+    background-color: black;
+}
+#red-button{
+    position: absolute;
+    bottom: 39%;
+    right: 13%;
+    height: 11.5%;
+    width: 15%;
+    background-color: red;
+}
+.middle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.info-button{
+    height: 7%;
+    width: 7%;
+    right:5%;
+    bottom: 14%;
+    position: absolute;
+    color: darkgray;
+    padding: 2px;
+    
     
 }
+
