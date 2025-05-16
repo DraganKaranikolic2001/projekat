@@ -61,9 +61,13 @@ function resizeCards(){
 
 }
 
-document.getElementById("magic-button").addEventListener("click", function(){
+/*document.getElementById("magic-button").addEventListener("click", function(){
     window.open("https://www.google.com","_blank","width=800,height=600,top=100,left=100")
-});
+});*/
+// document.getElementById("info-button").addEventListener("click", function () {
+//     window.open("info.html", "_blank", "toolbar=no,location=no,menubar=no,scrollbars=yes,resizable=yes,width=" + screen.width + ",height=" + screen.height);
+// });
+
 
 window.addEventListener('resize',sizeImg);
 window.addEventListener('resize',sizeHistory);

@@ -137,7 +137,13 @@ body{
     position: absolute;
     color: darkgray;
     padding: 2px;
-    
-    
+}
+#win-button{
+    position: absolute;
+     height: 11.5%;
+    width: 15%;
+    background-color: green;
+     right:14%;
+    bottom: 14%;
 }
 
