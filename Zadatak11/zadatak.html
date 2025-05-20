@@ -14,10 +14,7 @@
                 <div class="history-card" style="border: 4px solid darkgreen;"></div>
             </div>
              <div class="gamble-box" id="gamble-box-id">
-                <img class="gamble-card-stack"  id="gamble-card" src="images/gamble/black-min.png">
-                <img class="gamble-card-stack1" id="gamble-card" src="images/gamble/red-min.png">
-                <img class="gamble-card-stack2"  id="gamble-card" src="images/gamble/black-min.png">
-                <img class="gamble-card-stack3" id="gamble-card" src="images/gamble/red-min.png">
+                <img class="gamble-card-stack"  id="gamble-card" src="images/gamble/cards-min.png">
                 <img class="gamble-card-gif" id="gamble-gif" src = "images/gamble/redblack.gif">
             </div>
             <div class="gamble-info" id="gamble-info-id">
@@ -40,7 +37,23 @@
             <div class="info-button button middle" id="magic-button">
                 <i >i</i>
             </div>
-            <div class="gamble-button button middle" id="win-button">TAKE WIN</div>
+             <div class="gamble-button button middle" id="win-button">TAKE WIN</div>
+            <div class="modal-wrapper">
+                <div class="modal hidden" id="modal">
+                     <h2>Pravila Igre Duplanje: Crvena ili Crna</h1>
+                    <p>-Nakon svake pobede u osnovnoj igri, igrač dobija priliku da <strong>duplira dobitak</strong> kroz mini-igru "Crvena ili Crna".</p>
+                    <p>-Igrač bira da li će karta biti <strong>crvena (herc/karo)</strong> ili <strong>crna (pik/tref)</strong>.</p>
+                    <p>-Ako pogodi boju, dobitak se <strong>udvostručuje</strong> i može pokušati ponovo.</p>
+                    <p>-Ako <strong>promaši</strong>, gubi <strong>ceo dobitak</strong> iz prethodne igre.</p>
+                    <p>-Maksimalno <strong>5 uspešnih pokušaja</strong> duplanja po jednom dobitku.</p>
+                    <p>-Igrač može odustati i zadržati trenutni dobitak u bilo kom trenutku.</p>
+                    <p><em>Igrajte odgovorno. Jedan pogrešan pokušaj znači gubitak kompletnog dobitka.</em></p>
+                    <button class="x" id="close">&times;</button>
+                </div>
+                <div class="overlay hidden" id="overlay"></div>
+            </div>
+            
+            
 
         
         </div>

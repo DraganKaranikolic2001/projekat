@@ -52,6 +52,19 @@ function sizeText()
 
 }
 
+function sizeButtons(){
+    const el2=document.getElementById("main-page");
+    const el1= document.querySelectorAll(".button");
+    let base=el2.clientHeight;
+    if(base>620)
+        base=620;
+
+    el1.forEach(e=>{
+        e.style.fontSize= (base*0.04)+"px";
+    })
+}
+
+
 function resizeCards(){
     const el1=document.getElementById("gamble-box-id");
     const width=window.innerWidth;
@@ -68,10 +81,83 @@ function resizeCards(){
 //     window.open("info.html", "_blank", "toolbar=no,location=no,menubar=no,scrollbars=yes,resizable=yes,width=" + screen.width + ",height=" + screen.height);
 // });
 
+function resizeModalWrapper() {
+    const wrapper = document.querySelector(".modal-wrapper");
+    const modal = document.getElementById("modal");
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    const ratio = 16 / 9;
 
-window.addEventListener('resize',sizeImg);
-window.addEventListener('resize',sizeHistory);
-window.addEventListener('resize',resizeCards);
-window.addEventListener('resize',sizeText);
+
+    if ((width / height) < ratio) {
+        wrapper.style.width = width + "px";
+        wrapper.style.height = (width / ratio) + "px";
+    } else {
+        wrapper.style.height = height + "px";
+        wrapper.style.width = (height * ratio) + "px";
+    }
+
+  
+    modal.style.width = (wrapper.clientWidth * 0.7) + "px";
+    modal.style.maxHeight = (wrapper.clientHeight * 0.8) + "px";
+
+   
+    const base = wrapper.clientHeight;
+    const title = modal.querySelector("h2");
+    const para = modal.querySelectorAll("p");
+    const button = modal.querySelector("button");
+
+    title.style.fontSize = (base * 0.04) + "px";
+    para.forEach(el => {
+        el.style.fontSize = (base * 0.04) + "px"
+    });
+    // para.style.fontSize = (base * 0.03) + "px";
+    button.style.fontSize = (base * 0.05) + "px";
+    button.style.padding = (base * 0.01) + "px " + (base * 0.015) + "px";
+}
+
+function resizeAndLoadEvents(fns){
+    fns.forEach(fn=>{
+        window.addEventListener("resize",fn);
+        window.addEventListener("load",fn);
+    });
+}
+
+resizeAndLoadEvents([
+    sizeImg,
+    sizeHistory,
+    sizeText,
+    sizeButtons,
+    resizeCards,
+    resizeModalWrapper
+]);
+
+// window.addEventListener("resize", resizeModalWrapper);
+// window.addEventListener("load", resizeModalWrapper);
+
+// window.addEventListener('resize',sizeImg);
+// window.addEventListener('resize',sizeHistory);
+// window.addEventListener('resize',resizeCards);
+// window.addEventListener('resize',sizeText);
+// window.addEventListener('resize',sizeButtons);
+
+
+const magic= document.querySelector('.info-button');
+const modal= document.querySelector('.modal');
+const x= document.querySelector('.x');
+const overlay= document.querySelector('.overlay');
+
+const open=function(){
+    modal.classList.remove('hidden');
+    overlay.classList.remove('hidden');
+}
+magic.addEventListener('click', open);
+
+const close= function(){
+    modal.classList.add('hidden');
+    overlay.classList.add('hidden');
+}
+x.addEventListener('click',close);
+overlay.addEventListener('click',close);
 
 
