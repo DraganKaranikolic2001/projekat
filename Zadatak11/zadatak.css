@@ -108,9 +108,8 @@ body{
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 .gamble-button,.info-button{
-    font-size: 3vh;
-    border-radius: 2vh;
-    border: 0.3vh solid white;
+    border-radius: 1vh;
+    border: 0.1vh solid white;
     color:white;
     
 
@@ -140,7 +139,7 @@ body{
 .info-button{
     height: 7%;
     width: 7%;
-    right:5%;
+    right:3%;
     bottom: 14%;
     position: absolute;
     color: darkgray;
@@ -156,7 +155,7 @@ body{
 }
 
 .modal{
-    background-color: black;
+    background-color: rgb(64,64,64);
     padding: 2rem;
     position: absolute;
     top:50%;
@@ -217,4 +216,15 @@ body{
 .modal::-webkit-scrollbar-thumb {
   background: gray;
   border-radius: 4px;
+}
+#blackout{
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0;
+    z-index: 10;
+    transition: opacity 1s ease-out;
 }

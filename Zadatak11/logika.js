@@ -1,5 +1,7 @@
 const slika=document.getElementById("pictureGamble")
 
+
+//Resizing svega
 function sizeImg()
 {
     const el=document.getElementById("main-page");
@@ -74,12 +76,6 @@ function resizeCards(){
 
 }
 
-/*document.getElementById("magic-button").addEventListener("click", function(){
-    window.open("https://www.google.com","_blank","width=800,height=600,top=100,left=100")
-});*/
-// document.getElementById("info-button").addEventListener("click", function () {
-//     window.open("info.html", "_blank", "toolbar=no,location=no,menubar=no,scrollbars=yes,resizable=yes,width=" + screen.width + ",height=" + screen.height);
-// });
 
 function resizeModalWrapper() {
     const wrapper = document.querySelector(".modal-wrapper");
@@ -132,6 +128,16 @@ resizeAndLoadEvents([
     resizeModalWrapper
 ]);
 
+//----------------------------------------
+
+/*document.getElementById("magic-button").addEventListener("click", function(){
+    window.open("https://www.google.com","_blank","width=800,height=600,top=100,left=100")
+});*/
+// document.getElementById("info-button").addEventListener("click", function () {
+//     window.open("info.html", "_blank", "toolbar=no,location=no,menubar=no,scrollbars=yes,resizable=yes,width=" + screen.width + ",height=" + screen.height);
+// });
+
+
 // window.addEventListener("resize", resizeModalWrapper);
 // window.addEventListener("load", resizeModalWrapper);
 
@@ -141,7 +147,7 @@ resizeAndLoadEvents([
 // window.addEventListener('resize',sizeText);
 // window.addEventListener('resize',sizeButtons);
 
-
+//Funkcije za modalni prozor
 const magic= document.querySelector('.info-button');
 const modal= document.querySelector('.modal');
 const x= document.querySelector('.x');
@@ -159,5 +165,160 @@ const close= function(){
 }
 x.addEventListener('click',close);
 overlay.addEventListener('click',close);
+//-----------------------------------------
+
+//Funkcije za zvuk
+function clickInfo(){
+    var sound=document.getElementById('info-audio');
+    sound.play();
+}
+function clickRed(){
+    stopGifSound();
+    var sound=document.getElementById('red-audio')
+    sound.play();
+    gamble('red');
+}
+
+function clickBlack(){
+    stopGifSound();
+    var sound=document.getElementById('black-audio')
+    sound.play();
+    gamble('black');
+}
+function clickTakeWin(){
+   
+    alert("Svaka cast! Zaradio si: " + gambleAmount.toFixed(2) + " Eura!");
+    document.getElementById("gamble-amount-to-win").textContent = "0.00";
+    document.getElementById("gamble-attempts").textContent = "0";
+    document.getElementById("gamble-to-win").textContent="0.00";
+    if(gambleAmount>0.00){
+        var sound=document.getElementById('take-win-audio');
+        sound.play();
+    }
+    resetPage();
+
+     
+}
+//------------------------------------------
+
+//Ucitavanja vrednosti i zvuka za mesanje karata
+window.addEventListener('DOMContentLoaded', function(){
+    console.log(gambleAmount);
+    console.log(gambleAmount*2);
+
+    document.getElementById('gamble-amount-to-win').textContent=gambleAmount;
+    document.getElementById('gamble-to-win').textContent=(gambleAmount*2).toFixed(2);
+
+    // const gifSound = document.getElementById("gif-sound");
+    // gifSound.play();
+    playGifSound();
+})
+//-----------------------------------------------------------
+
+
+
+function generateCard() {
+    const cards = [
+        { src: 'images/gamble/1-min.png', color: 'red' },
+        { src: 'images/gamble/3-min.png', color: 'red' },
+        { src: 'images/gamble/0-min.png',  color: 'black' },
+        { src: 'images/gamble/2-min.png', color: 'black' }
+    ];
+
+    const randomIndex = Math.floor(Math.random() * cards.length);
+    return cards[randomIndex];
+}
+
+
+let maxAttempts=5;
+let currentAttempts=0;
+let gambleAmount = ((Math.random())*10).toFixed(2); 
+
+
+
+function gamble(playerChoice){
+    const resultCard=generateCard();
+    const result=resultCard.color;
+    console.log(result);
+
+    const img=document.getElementById("gamble-gif");
+    img.src=resultCard.src;
+
+
+     setTimeout(() => {
+        img.src = "images/gamble/redblack.gif";
+        playGifSound();
+        if(playerChoice!==result)
+            stopGifSound()
+    }, 500);
+    
+    
+    if(playerChoice===result){
+        gambleAmount*=2;
+        currentAttempts++;
+
+        document.getElementById('gamble-amount-to-win').textContent=gambleAmount.toFixed(2);
+        document.getElementById("gamble-attempts").textContent=maxAttempts-currentAttempts;
+        document.getElementById("gamble-to-win").textContent=(gambleAmount*2).toFixed(2);
+
+        console.log(currentAttempts);
+        
+        playSound('win');
+        if(currentAttempts>=maxAttempts){
+            collectWinnings();
+        }
+
+    }
+    else{
+       
+        gambleAmount=0;
+        currentAttempts=0;
+        document.getElementById('gamble-amount-to-win').textContent=parseFloat(gambleAmount).toFixed(2);
+        document.getElementById("gamble-attempts").textContent=0;
+        document.getElementById("gamble-to-win").textContent=parseFloat(gambleAmount).toFixed(2);
+        playSound('lose');
+        resetPage();
+
+
+    }
+}
+
+function resetPage(){
+    const blackout = document.getElementById("blackout");
+        blackout.style.display = "block";
+        setTimeout(() => {
+        blackout.style.opacity = "1";
+        }, 1500);
+
+       setTimeout(()=>location.reload(),2500);
+}
+//Zvukovi
+function playGifSound(){
+    const gifSound = document.getElementById("gif-sound");
+    gifSound.currentTime = 0;
+    gifSound.play();
+    gifSound.volume=1;
+}
+
+function playSound(type) {
+    const audio = new Audio(type === 'win' ? 'sounds/RedBlackWin.mp3' : 'sounds/RedBlackLose.mp3');
+    audio.play();
+}
+
+function stopGifSound() {
+    const gifSound = document.getElementById("gif-sound");
+    gifSound.volume=0;
+    
+}
+//--------------------------------------------------------------
+
+function collectWinnings()
+{
+    alert("Svaka cast majstore! Zaradio si: " + gambleAmount.toFixed(2) + " Eura!");
+    
+    resetPage();
+}
+
+
 
 
