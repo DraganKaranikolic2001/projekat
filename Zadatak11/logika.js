@@ -162,6 +162,7 @@ magic.addEventListener('click', open);
 const close= function(){
     modal.classList.add('hidden');
     overlay.classList.add('hidden');
+    playGifSound();
 }
 x.addEventListener('click',close);
 overlay.addEventListener('click',close);
@@ -171,6 +172,7 @@ overlay.addEventListener('click',close);
 function clickInfo(){
     var sound=document.getElementById('info-audio');
     sound.play();
+    stopGifSound();
 }
 function clickRed(){
     stopGifSound();
