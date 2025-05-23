@@ -25,14 +25,19 @@ body{
 .history-title{
     position: absolute;
     color: white;
-    left: 10%;
+    left: 5%;
     top: 9%;
     margin: auto;
 }
 .history-card{
     position: absolute;
     top: 4%;
+    left : 20%;
     height: 14%;
+    width: 35%;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 10px;
 }
 .top-side{
     display: flex;
@@ -40,20 +45,12 @@ body{
     justify-content: center;
     text-align: center;
 }
-.gamble-card-stack, .gamble-card-stack1, .gamble-card-stack2,.gamble-card-stack3, .gamble-card-gif{
+.gamble-card-stack, .gamble-card-gif{
     position: absolute;
     left:4%;
     pointer-events: none;
 }
-.gamble-card-stack1{
-    left: 23%;
-}
-.gamble-card-stack2{
-    left: 37%;
-}
-.gamble-card-stack3{
-    left:52%;
-}
+
 .gamble-card-gif{
     left: 40%;
 }
@@ -170,7 +167,7 @@ body{
     flex-direction: column;
     align-items: center;
     text-align: center;
-    overflow-y: auto;
+    overflow-y: scroll;
     max-height: 80%;
 }
 .x{
@@ -203,10 +200,10 @@ body{
     color: red;
 }
 #modal p {
-    font-size: 1rem;
-    margin-bottom: 1.5rem;
+    /* font-size: 1rem; */
+    /* margin-bottom: 1.5rem; */
     color: white;
-    max-width: 400px;
+    max-width: 500px;
 }
 
 .modal::-webkit-scrollbar {
@@ -228,3 +225,15 @@ body{
     z-index: 10;
     transition: opacity 1s ease-out;
 }
+.logo-box{
+    position: absolute;
+    top: 3%;
+    right: 4%;
+    margin:auto;
+    width: 40%;
+}
+.logo-img{
+    max-width: 100%;
+    height: auto;
+}
+

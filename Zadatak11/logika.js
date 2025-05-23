@@ -1,5 +1,9 @@
-const slika=document.getElementById("pictureGamble")
+const slika=document.getElementById("pictureGamble");
+const maxAttempts=5;
+let currentAttempts=0;
+let gambleAmount = ((Math.random())*100).toFixed(2); 
 
+let historyCards=[];
 
 //Resizing svega
 function sizeImg()
@@ -67,14 +71,14 @@ function sizeButtons(){
 }
 
 
-function resizeCards(){
-    const el1=document.getElementById("gamble-box-id");
-    const width=window.innerWidth;
-    const height=window.innerHeight;
-    el1.style.height=height*0.8;
-    el1.style.width=width*0.8;
+// function resizeCards(){
+//     const el1=document.getElementById("gamble-box-id");
+//     const width=window.innerWidth;
+//     const height=window.innerHeight;
+//     el1.style.height=height*0.8;
+//     el1.style.width=width*0.8;
 
-}
+// }
 
 
 function resizeModalWrapper() {
@@ -112,6 +116,7 @@ function resizeModalWrapper() {
     button.style.padding = (base * 0.01) + "px " + (base * 0.015) + "px";
 }
 
+
 function resizeAndLoadEvents(fns){
     fns.forEach(fn=>{
         window.addEventListener("resize",fn);
@@ -124,7 +129,7 @@ resizeAndLoadEvents([
     sizeHistory,
     sizeText,
     sizeButtons,
-    resizeCards,
+    // resizeCards,
     resizeModalWrapper
 ]);
 
@@ -153,13 +158,13 @@ const modal= document.querySelector('.modal');
 const x= document.querySelector('.x');
 const overlay= document.querySelector('.overlay');
 
-const open=function(){
+function open(){
     modal.classList.remove('hidden');
     overlay.classList.remove('hidden');
 }
 magic.addEventListener('click', open);
 
-const close= function(){
+function close(){
     modal.classList.add('hidden');
     overlay.classList.add('hidden');
     playGifSound();
@@ -188,15 +193,16 @@ function clickBlack(){
     gamble('black');
 }
 function clickTakeWin(){
-   
-    alert("Svaka cast! Zaradio si: " + gambleAmount.toFixed(2) + " Eura!");
+    
+    
     document.getElementById("gamble-amount-to-win").textContent = "0.00";
     document.getElementById("gamble-attempts").textContent = "0";
     document.getElementById("gamble-to-win").textContent="0.00";
-    if(gambleAmount>0.00){
-        var sound=document.getElementById('take-win-audio');
-        sound.play();
-    }
+    var sound=document.getElementById('take-win-audio');
+    sound.play();
+    alert("Svaka cast! Zaradio si: " + gambleAmount + " Eura!");
+    
+    
     resetPage();
 
      
@@ -210,7 +216,9 @@ window.addEventListener('DOMContentLoaded', function(){
 
     document.getElementById('gamble-amount-to-win').textContent=gambleAmount;
     document.getElementById('gamble-to-win').textContent=(gambleAmount*2).toFixed(2);
-
+    const ucitaneKarte= JSON.parse(this.localStorage.getItem("slikeKarata"));
+    console.log(ucitaneKarte);
+    appendCards(ucitaneKarte);
     // const gifSound = document.getElementById("gif-sound");
     // gifSound.play();
     playGifSound();
@@ -223,8 +231,8 @@ function generateCard() {
     const cards = [
         { src: 'images/gamble/1-min.png', color: 'red' },
         { src: 'images/gamble/3-min.png', color: 'red' },
-        { src: 'images/gamble/0-min.png',  color: 'black' },
-        { src: 'images/gamble/2-min.png', color: 'black' }
+                // { src: 'images/gamble/0-min.png',  color: 'black' },
+                // { src: 'images/gamble/2-min.png', color: 'black' }
     ];
 
     const randomIndex = Math.floor(Math.random() * cards.length);
@@ -232,13 +240,8 @@ function generateCard() {
 }
 
 
-let maxAttempts=5;
-let currentAttempts=0;
-let gambleAmount = ((Math.random())*10).toFixed(2); 
-
-
-
 function gamble(playerChoice){
+
     const resultCard=generateCard();
     const result=resultCard.color;
     console.log(result);
@@ -246,7 +249,8 @@ function gamble(playerChoice){
     const img=document.getElementById("gamble-gif");
     img.src=resultCard.src;
 
-
+    updateHistory(resultCard);
+    console.log(historyCards);
      setTimeout(() => {
         img.src = "images/gamble/redblack.gif";
         playGifSound();
@@ -264,6 +268,7 @@ function gamble(playerChoice){
         document.getElementById("gamble-to-win").textContent=(gambleAmount*2).toFixed(2);
 
         console.log(currentAttempts);
+        document.getElementById("win-button").classList.remove("hidden");
         
         playSound('win');
         if(currentAttempts>=maxAttempts){
@@ -273,7 +278,7 @@ function gamble(playerChoice){
     }
     else{
        
-        gambleAmount=0;
+       gambleAmount=0; 
         currentAttempts=0;
         document.getElementById('gamble-amount-to-win').textContent=parseFloat(gambleAmount).toFixed(2);
         document.getElementById("gamble-attempts").textContent=0;
@@ -286,6 +291,9 @@ function gamble(playerChoice){
 }
 
 function resetPage(){
+
+    localStorage.setItem("slikeKarata",JSON.stringify(historyCards));
+   
     const blackout = document.getElementById("blackout");
         blackout.style.display = "block";
         setTimeout(() => {
@@ -299,7 +307,7 @@ function playGifSound(){
     const gifSound = document.getElementById("gif-sound");
     gifSound.currentTime = 0;
     gifSound.play();
-    gifSound.volume=1;
+    gifSound.volume=0.4;
 }
 
 function playSound(type) {
@@ -320,7 +328,41 @@ function collectWinnings()
     
     resetPage();
 }
+// Istorija karata
 
+function updateHistory(card) {
+    const historyContainer = document.getElementById("history-card");
 
+    historyCards.push(card);
 
+    if (historyCards.length > 4) {
+        historyCards.pop();
+    }
 
+    historyContainer.innerHTML="";
+
+    historyCards.forEach(c => {
+        const cardImg = document.createElement("img");
+        cardImg.src = c.src;
+        historyContainer.appendChild(cardImg);
+    });
+}
+function appendCards(cards)
+{
+    const historyContainer = document.getElementById("history-card");
+
+    cards.forEach(c => {
+        const cardImg = document.createElement("img");
+        cardImg.src = c.src;
+        historyContainer.appendChild(cardImg);
+    });
+}
+
+//--------------------------------------
+
+//sve resize da stavim u 1 fju
+//kad se pokrene igra da uvek ima 5k kredita, gamble amount je 50 i da se svaki put kad il izgubi il dodje do 5 da mu se doda/oduzme vrednost i nastavi igra
+//da napravim 1 fju za yvuk preko enumarecije
+//zvuk dugme 3 nivo(mute,0,4,0,8)
+//Kad se ucitava igra da se pita da li zeli zvuk ili ne
+//portrait ako ostane vremena
