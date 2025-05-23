@@ -25,14 +25,19 @@ body{
 .history-title{
     position: absolute;
     color: white;
-    left: 10%;
+    left: 5%;
     top: 9%;
     margin: auto;
 }
 .history-card{
     position: absolute;
     top: 4%;
+    left : 20%;
     height: 14%;
+    width: 35%;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 10px;
 }
 .top-side{
     display: flex;
@@ -40,20 +45,195 @@ body{
     justify-content: center;
     text-align: center;
 }
-.gamble-card-stack, .gamble-card-stack1{
+.gamble-card-stack, .gamble-card-gif{
     position: absolute;
-    left:8%;
-    width: 70%;
-    height: 70%;
+    left:4%;
+    pointer-events: none;
 }
-.gamble-card-stack1{
-    left: 16%;
+
+.gamble-card-gif{
+    left: 40%;
 }
 .gamble-box{
     position: absolute;
-    top: 22.5%;
+    top: 23%;
     left: 0;
     margin: auto;
     padding: 3.5%;
-    
+    width: 100%;
+    height: 50%;
+    box-shadow: inset 0px 0px 132px -4px rgba(0, 0, 0, 1);
+    box-sizing: border-box;
+    border-top: 2px solid rgba(244, 244, 244, 0.1);
+    border-bottom: 2px solid rgba(244, 244, 244, 0.1);
+
 }
+.gamble-box img{
+    height: 75%;
+}
+.gamble-info{
+    position: absolute;
+    bottom: 1%;
+    width: 57%;
+    height: 20%;
+    margin: 4%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.gamble-info-label{
+    color:red;
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+}
+.gamble-info-amount{
+    color: white;
+    font-size: 30px;
+    margin: 0;
+    padding: 0;
+}
+.gamble-column{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-bottom: 2px;
+}
+.button{
+    cursor: pointer;
+    outline: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+.gamble-button,.info-button{
+    border-radius: 1vh;
+    border: 0.1vh solid white;
+    color:white;
+    
+
+}
+#black-button{
+    position: absolute;
+    bottom: 56%;
+    right: 13%;
+    height: 11.5%;
+    width: 15%;
+    background-color: black;
+}
+#red-button{
+    position: absolute;
+    bottom: 33%;
+    right: 13%;
+    height: 11.5%;
+    width: 15%;
+    background-color: red;
+}
+.middle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.info-button{
+    height: 7%;
+    width: 7%;
+    right:3%;
+    bottom: 14%;
+    position: absolute;
+    color: darkgray;
+    padding: 2px;
+}
+#win-button{
+    position: absolute;
+     height: 11.5%;
+    width: 15%;
+    background-color: green;
+     right:14%;
+    bottom: 12%;
+}
+
+.modal{
+    background-color: rgb(64,64,64);
+    padding: 2rem;
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    z-index: 6;
+    border-radius: 10px;
+    border: 1px solid white;
+    padding: 20px;
+    box-shadow: 0px 0px 30px 13px rgb(0,0,0);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    overflow-y: scroll;
+    max-height: 80%;
+}
+.x{
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: transparent;
+    border:none;
+    font-size: 1.5rem;
+    color:red;
+    cursor: pointer;
+    font-weight: bold;
+}
+.overlay{
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
+    backdrop-filter: blur(4px);
+    z-index: 5;
+}
+.hidden{
+    display: none;
+}
+#modal h2 {
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: red;
+}
+#modal p {
+    /* font-size: 1rem; */
+    /* margin-bottom: 1.5rem; */
+    color: white;
+    max-width: 500px;
+}
+
+.modal::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal::-webkit-scrollbar-thumb {
+  background: gray;
+  border-radius: 4px;
+}
+#blackout{
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0;
+    z-index: 10;
+    transition: opacity 1s ease-out;
+}
+.logo-box{
+    position: absolute;
+    top: 3%;
+    right: 4%;
+    margin:auto;
+    width: 40%;
+}
+.logo-img{
+    max-width: 100%;
+    height: auto;
+}
+
