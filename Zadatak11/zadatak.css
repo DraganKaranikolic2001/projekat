@@ -127,6 +127,23 @@ body{
     width: 15%;
     background-color: red;
 }
+#mutebtn{
+    position: absolute;
+    width: 6vw;
+    height: 6vw;
+    max-height: 50px;
+    max-width: 50px;
+    bottom: 2%;
+    right : 5%;
+    border: none;
+    outline: none;
+    padding: 0;
+}
+#mutebtn img{
+    width: 100%;        
+    height: 100%;       
+     
+}
 .middle{
     display: flex;
     justify-content: center;
