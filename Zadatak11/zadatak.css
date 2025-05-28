@@ -99,17 +99,15 @@ body{
     text-align: center;
     margin-bottom: 2px;
 }
-.button{
+.button, .buttonMute{
     cursor: pointer;
     outline: none;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
-.gamble-button,.info-button{
+.gamble-button,.info-button,#mutebtn{
     border-radius: 1vh;
     border: 0.1vh solid white;
     color:white;
-    
-
 }
 #black-button{
     position: absolute;
@@ -127,44 +125,20 @@ body{
     width: 15%;
     background-color: red;
 }
-#mutebtn{
-    position: absolute;
-    width: 6vw;
-    height: 6vw;
-    max-height: 50px;
-    max-width: 50px;
-    bottom: 2%;
-    right : 5%;
-    border: none;
-    outline: none;
-    padding: 0;
-}
-#mutebtn img{
-    width: 100%;        
-    height: 100%;       
-     
-}
+
 .middle{
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
 }
-.info-button{
-    height: 7%;
-    width: 7%;
-    right:3%;
-    bottom: 14%;
-    position: absolute;
-    color: darkgray;
-    padding: 2px;
-}
+
 #win-button{
     position: absolute;
-     height: 11.5%;
+    height: 11.5%;
     width: 15%;
     background-color: green;
-     right:14%;
+    right:17%;
     bottom: 12%;
 }
 
@@ -253,4 +227,30 @@ body{
     max-width: 100%;
     height: auto;
 }
+.info-volume-wrapper{
+    position: absolute;
+    bottom: 12%;
+    right: 1%;
+    height: 10%;
+    width: 13%;
+    display: flex;
+    align-items:flex-end;
+    gap : 5%;
+
+}
+.info-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: darkgray;
+    padding: 2px;
+}
+#mutebtn{
+    padding: 2px;
+     display: flex;
+    justify-content: center;
+    align-items: center;
+    color:white;
+}
+
 

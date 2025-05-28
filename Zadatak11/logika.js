@@ -5,14 +5,20 @@ let gambleAmount = ((Math.random())*100).toFixed(2);
 
 let historyCards=[];
 
+
+
 //Resizing svega
-function sizeImg()
-{
+function resizeAll(){
+
+    //Glavi prozor i modalni prozor
     const el=document.getElementById("main-page");
     const width=window.innerWidth;
     const height=window.innerHeight;
-    //console.log(width);
-    //console.log(height);
+
+    const wrapper = document.querySelector(".modal-wrapper");
+    const modal = document.getElementById("modal");
+
+
     el.style.width=width+"px";
     el.style.height=height+"px";
     const ratio=16/9;
@@ -21,54 +27,143 @@ function sizeImg()
     {
         el.style.width=width+"px";
         el.style.height=width/ratio+"px";
+
+        wrapper.style.width = width + "px";
+        wrapper.style.height = (width / ratio) + "px";
     }
     else
     {
         el.style.height=height+"px";
         el.style.width=height*ratio+"px";
+
+        wrapper.style.height = height + "px";
+        wrapper.style.width = (height * ratio) + "px";
     }
 
-    
-    
-}
-function sizeHistory()
-{
-    const el=document.getElementById("history");
-    const el1=document.getElementById("main-page");
-    const base = el1.clientHeight;
-    el.style.fontSize=(base*0.05)+"px";
-    /*const size= 50+"px";
-    if(parseFloat(el.style.fontSize) >parseFloat(size) )
-        el.style.fontSize=size;*/
+    modal.style.width = (wrapper.clientWidth * 0.7) + "px";
+    modal.style.maxHeight = (wrapper.clientHeight * 0.8) + "px";
 
-}
-function sizeText()
-{
-    const el2=document.getElementById("main-page");
-    const el= document.querySelectorAll(".gamble-info-label");
-    const el1= document.querySelectorAll(".gamble-info-amount");
-    const base = el2.clientHeight;
+   
+    const baseWrapper = wrapper.clientHeight;
+    const title = modal.querySelector("h2");
+    const para = modal.querySelectorAll("p");
+    const buttonModal = modal.querySelector(".x");
 
-    el.forEach(e=>{
+    title.style.fontSize = (baseWrapper * 0.04) + "px";
+    para.forEach(el => {
+        el.style.fontSize = (baseWrapper * 0.04) + "px"
+    });
+    // para.style.fontSize = (base * 0.03) + "px";
+    buttonModal.style.fontSize = (baseWrapper * 0.05) + "px";
+    buttonModal.style.padding = (baseWrapper * 0.01) + "px " + (baseWrapper * 0.015) + "px";
+
+    //History div
+    const elHistory=document.getElementById("history");
+    const base = el.clientHeight;
+    elHistory.style.fontSize=(base*0.05)+"px";
+    //Info div sa gamble amountom
+    const elAmount= document.querySelectorAll(".gamble-info-label");
+    const el1Amount= document.querySelectorAll(".gamble-info-amount");
+    elAmount.forEach(e=>{
         e.style.fontSize=(base*0.03)+"px";
     })
-    el1.forEach(e=>{
+    el1Amount.forEach(e=>{
+        e.style.fontSize=(base*0.04)+"px";
+    })
+    //Buttons gamble
+    let base1=el.clientHeight
+    const elButtons=document.querySelectorAll(".button");
+    if(base1>620)
+        base1=620;
+    elButtons.forEach(e=>{
         e.style.fontSize=(base*0.04)+"px";
     })
 
+    // Mute dugme
+    const muteBtn = document.getElementById("mutebtn");
+    const muteIcon = muteBtn.querySelector("i");
+
+    const muteSize = base * 0.08;
+    muteBtn.style.width = muteSize + "px";
+    muteBtn.style.height = muteSize + "px";
+    muteIcon.style.fontSize = (base * 0.04) + "px";
+
+    //info dugme
+    const infoBtn = document.getElementById("magic-button");
+    const infoIcon = infoBtn.querySelector("i");
+
+    infoBtn.style.width = muteSize + "px";
+    infoBtn.style.height = muteSize + "px";
+    infoIcon.style.fontSize = (base * 0.04) + "px";
+
+
 }
 
-function sizeButtons(){
-    const el2=document.getElementById("main-page");
-    const el1= document.querySelectorAll(".button");
-    let base=el2.clientHeight;
-    if(base>620)
-        base=620;
+// function sizeImg()
+// {
 
-    el1.forEach(e=>{
-        e.style.fontSize= (base*0.04)+"px";
-    })
-}
+//     //Glavni page da ima odnos 16/9
+//     const el=document.getElementById("main-page");
+//     const width=window.innerWidth;
+//     const height=window.innerHeight;
+//     //console.log(width);
+//     //console.log(height);
+//     el.style.width=width+"px";
+//     el.style.height=height+"px";
+//     const ratio=16/9;
+//     //Ovo se odnosi na ratio 16:9 da uvek bude takkav kako god klijent namestio prozor(window)
+//     if((width/height)<ratio)
+//     {
+//         el.style.width=width+"px";
+//         el.style.height=width/ratio+"px";
+
+        
+//     }
+//     else
+//     {
+//         el.style.height=height+"px";
+//         el.style.width=height*ratio+"px";
+//     }
+
+// }
+// function sizeHistory()
+// {
+//     const el=document.getElementById("history");
+//     const el1=document.getElementById("main-page");
+//     const base = el1.clientHeight;
+//     el.style.fontSize=(base*0.05)+"px";
+//     /*const size= 50+"px";
+//     if(parseFloat(el.style.fontSize) >parseFloat(size) )
+//         el.style.fontSize=size;*/
+
+// }
+// function sizeText()
+// {
+//     const el2=document.getElementById("main-page");
+//     const el= document.querySelectorAll(".gamble-info-label");
+//     const el1= document.querySelectorAll(".gamble-info-amount");
+//     const base = el2.clientHeight;
+
+//     el.forEach(e=>{
+//         e.style.fontSize=(base*0.03)+"px";
+//     })
+//     el1.forEach(e=>{
+//         e.style.fontSize=(base*0.04)+"px";
+//     })
+
+// }
+
+// function sizeButtons(){
+//     const el2=document.getElementById("main-page");
+//     const el1= document.querySelectorAll(".button");
+//     let base=el2.clientHeight;
+//     if(base>620)
+//         base=620;
+
+//     el1.forEach(e=>{
+//         e.style.fontSize= (base*0.04)+"px";
+//     })
+// }
 
 
 // function resizeCards(){
@@ -81,41 +176,42 @@ function sizeButtons(){
 // }
 
 
-function resizeModalWrapper() {
-    const wrapper = document.querySelector(".modal-wrapper");
-    const modal = document.getElementById("modal");
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-    const ratio = 16 / 9;
+// function resizeModalWrapper() {
+//     const wrapper = document.querySelector(".modal-wrapper");
+//     const modal = document.getElementById("modal");
+//     const width = window.innerWidth;
+//     const height = window.innerHeight;
+//     const ratio = 16 / 9;
 
 
-    if ((width / height) < ratio) {
-        wrapper.style.width = width + "px";
-        wrapper.style.height = (width / ratio) + "px";
-    } else {
-        wrapper.style.height = height + "px";
-        wrapper.style.width = (height * ratio) + "px";
-    }
+//     if ((width / height) < ratio) {
+//         wrapper.style.width = width + "px";
+//         wrapper.style.height = (width / ratio) + "px";
+//     } else {
+//         wrapper.style.height = height + "px";
+//         wrapper.style.width = (height * ratio) + "px";
+//     }
 
   
-    modal.style.width = (wrapper.clientWidth * 0.7) + "px";
-    modal.style.maxHeight = (wrapper.clientHeight * 0.8) + "px";
+//     modal.style.width = (wrapper.clientWidth * 0.7) + "px";
+//     modal.style.maxHeight = (wrapper.clientHeight * 0.8) + "px";
 
    
-    const base = wrapper.clientHeight;
-    const title = modal.querySelector("h2");
-    const para = modal.querySelectorAll("p");
-    const button = modal.querySelector("button");
+//     const base = wrapper.clientHeight;
+//     const title = modal.querySelector("h2");
+//     const para = modal.querySelectorAll("p");
+//     const button = modal.querySelector("button");
 
-    title.style.fontSize = (base * 0.04) + "px";
-    para.forEach(el => {
-        el.style.fontSize = (base * 0.04) + "px"
-    });
-    // para.style.fontSize = (base * 0.03) + "px";
-    button.style.fontSize = (base * 0.05) + "px";
-    button.style.padding = (base * 0.01) + "px " + (base * 0.015) + "px";
-}
+//     title.style.fontSize = (base * 0.04) + "px";
+//     para.forEach(el => {
+//         el.style.fontSize = (base * 0.04) + "px"
+//     });
+//     // para.style.fontSize = (base * 0.03) + "px";
+//     button.style.fontSize = (base * 0.05) + "px";
+//     button.style.padding = (base * 0.01) + "px " + (base * 0.015) + "px";
+// }
 
+//Utility helper da se ne duplira kod
 
 function resizeAndLoadEvents(fns){
     fns.forEach(fn=>{
@@ -125,33 +221,16 @@ function resizeAndLoadEvents(fns){
 }
 
 resizeAndLoadEvents([
-    sizeImg,
-    sizeHistory,
-    sizeText,
-    sizeButtons,
+    resizeAll
+    // sizeImg,
+    // sizeHistory,
+    // sizeText,
+    // sizeButtons,
     // resizeCards,
-    resizeModalWrapper
+    // resizeModalWrapper
 ]);
 
 //----------------------------------------
-
-/*document.getElementById("magic-button").addEventListener("click", function(){
-    window.open("https://www.google.com","_blank","width=800,height=600,top=100,left=100")
-});*/
-// document.getElementById("info-button").addEventListener("click", function () {
-//     window.open("info.html", "_blank", "toolbar=no,location=no,menubar=no,scrollbars=yes,resizable=yes,width=" + screen.width + ",height=" + screen.height);
-// });
-
-
-// window.addEventListener("resize", resizeModalWrapper);
-// window.addEventListener("load", resizeModalWrapper);
-
-// window.addEventListener('resize',sizeImg);
-// window.addEventListener('resize',sizeHistory);
-// window.addEventListener('resize',resizeCards);
-// window.addEventListener('resize',sizeText);
-// window.addEventListener('resize',sizeButtons);
-
 //Funkcije za modalni prozor
 const magic= document.querySelector('.info-button');
 const modal= document.querySelector('.modal');
@@ -235,8 +314,8 @@ function generateCard() {
     const cards = [
         { src: 'images/gamble/1-min.png', color: 'red' },
         { src: 'images/gamble/3-min.png', color: 'red' },
-        // { src: 'images/gamble/0-min.png',  color: 'black' },
-        // { src: 'images/gamble/2-min.png', color: 'black' }
+        { src: 'images/gamble/0-min.png',  color: 'black' },
+        { src: 'images/gamble/2-min.png', color: 'black' }
     ];
 
     const randomIndex = Math.floor(Math.random() * cards.length);
@@ -350,74 +429,153 @@ const Sound= Object.freeze({
 });
 
 const AudioHandler = {
-    sounds : {},
-    isMuted: false,
-    soundPic: document.getElementById("mute-icon"),
+    sounds: {},
+    mode: "on", // "on" | "half" | "mute"
+    volumeIcon: document.getElementById("volume"),
 
-    init () {
-        for (let key in Sound){
+    init() {
+        for (let key in Sound) {
             const soundData = Sound[key];
             const audio = new Audio(soundData.src);
-            audio.volume= soundData.volume || 0.7;
-            audio.loop=soundData.loop;
-            this.sounds[soundData.id]=audio;
+            audio.volume = soundData.volume || 0.7;
+            audio.loop = soundData.loop;
+            this.sounds[soundData.id] = audio;
         }
     },
-    play(id){
-        if(this.isMuted) return;
-        const sound=this.sounds[id];
-        if(sound){
-            sound.currentTime=0;
-            sound.play();
-        }
-        else{
-            console.warn("Zvuk nije pronadjen",id);
-        }
-    },
-    stop(id){
-        const sound=this.sounds[id]
-        if(sound){
-            sound.pause();
-            sound.currentTime=0;
-        }
-    },
-    setVolume(id,value){
-        const sound=this.sounds[id];
-        if(sound){
-            sound.volume=value;
-        }
-    },
-    muteAll(){
-        this.isMuted=true;
-        for(let x in this.sounds)
-            this.sounds[x].volume=0;
-        this.soundPic.src="images/sound-on.png"
 
+    play(id) {
+        if (this.mode === "mute") return;
+        const sound = this.sounds[id];
+        if (sound) {
+            sound.currentTime = 0;
+            sound.play();
+        } else {
+            console.warn("Zvuk nije pronađen:", id);
+        }
     },
-    unMuteAll(){
-        this.isMuted=false;
-        for (let x in Sound){
-            const soundData= Sound[x];
+
+    stop(id) {
+        const sound = this.sounds[id];
+        if (sound) {
+            sound.pause();
+            sound.currentTime = 0;
+        }
+    },
+
+    setVolume(id, value) {
+        const sound = this.sounds[id];
+        if (sound) {
+            sound.volume = value;
+        }
+    },
+
+    setMode(mode) {
+        let newMode=mode;
+        for (let x in Sound) {
+            const soundData = Sound[x];
             const sound = this.sounds[soundData.id];
-             if(sound) {
-                sound.volume = soundData.volume;
-                if(soundData.id=='gif')
-                    sound.play();
-                // if(sound.id==6)
-                //     sound.play();
+            if (sound) {
+                if(newMode==="half")
+                {
+                    sound.volume=0.3;
+                    this.volumeIcon.classList.replace("fa-volume-up", "fa-volume-down");
+                }
+                else if(newMode==="mute")
+                {
+                    sound.volume=0;
+                    this.volumeIcon.classList.replace("fa-volume-down", "fa-volume-off");
+                }
+                else{
+                    sound.volume=soundData.volume;
+                    this.volumeIcon.classList.replace("fa-volume-off", "fa-volume-up");
+                    if(soundData.id=='gif')
+                        sound.play();
+                }
+                this.mode=newMode;
             }
         }
-        this.soundPic.src="images/sound-off.png"
     },
-    toggleMute() {
-    if (this.isMuted) {
-        this.unMuteAll();
-    } else {
-        this.muteAll();
-    }
+    toggleMode() {
+        if (this.mode === "on") {
+            this.setMode("half");
+        } else if (this.mode === "half") {
+            this.setMode("mute");
+        } else {
+            this.setMode("on");
+        }
     }
 };
-    
+
+//     const AudioHandler={
+//     sounds : {}, 
+//     isMuted: false,
+//     // soundPic: document.getElementById("mute-icon"),
+//     volumeIcon: document.getElementById("volume"),
+//     init () {
+//         for (let key in Sound){
+//             const soundData = Sound[key];
+//             const audio = new Audio(soundData.src);
+//             audio.volume= soundData.volume || 0.7;
+//             audio.loop=soundData.loop;
+//             this.sounds[soundData.id]=audio;
+//         }
+//     },
+//     play(id){
+//         if(this.isMuted) return;
+//         const sound=this.sounds[id];
+//         if(sound){
+//             sound.currentTime=0;
+//             sound.play();
+//         }
+//         else{
+//             console.warn("Zvuk nije pronadjen",id);
+//         }
+//     },
+//     stop(id){
+//         const sound=this.sounds[id]
+//         if(sound){
+//             sound.pause();
+//             sound.currentTime=0;
+//         }
+//     },
+//     setVolume(id,value){
+//         const sound=this.sounds[id];
+//         if(sound){
+//             sound.volume=value;
+//         }
+//     },
+//     muteAll(){
+//         this.isMuted=true;
+//         for(let x in this.sounds)
+//             this.sounds[x].volume=0;
+//         this.volumeIcon.classList.replace("fa-volume-off","fa-volume-up");
+//         // this.soundPic.src="images/sound-on.png"
+
+//     },
+//     unMuteAll(){
+//         this.isMuted=false;
+//         for (let x in Sound){
+//             const soundData= Sound[x];
+//             const sound = this.sounds[soundData.id];
+//              if(sound) {
+//                 sound.volume = soundData.volume;
+//                 if(soundData.id=='gif')
+//                     sound.play();
+//                 // if(sound.id==6)
+//                 //     sound.play();
+//             }
+//         }
+//         this.volumeIcon.classList.replace("fa-volume-up","fa-volume-off");
+//         // this.soundPic.src="images/sound-off.png"
+//     },
+//     toggleMute() {
+//     if (this.isMuted) {
+//         this.unMuteAll();
+//     } else {
+//         this.muteAll();
+//     }
+//     }
+// };
 
 // function playGifSound(){
 //     const gifSound = document.getElementById("gif-sound");

@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="zadatak.css">
 <link rel="shortcut icon" href="#">
-<title>Zadatak</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<title>Gamble Game</title>
 </head>
 
 <body>
@@ -43,16 +44,21 @@
             <div class="gamble-button button middle" id="red-button" onclick="clickRed()">
                 <audio id="red-audio"></audio>
                 RED</div>
-            <div class="info-button button middle" id="magic-button" >
-                <audio id="info-audio"></audio>
-                <i >i</i>
-            </div>
+            
              <div class="gamble-button button middle hidden" id="win-button" onclick="clickTakeWin()">
                 <audio id="take-win-audio"></audio>
                 TAKE WIN</div>
-            <div class="button" id="mutebtn" onclick="AudioHandler.toggleMute()">
-                <img id="mute-icon" src="images/sound-off.png">
-            </div>
+             <div class="info-volume-wrapper">
+                <div class="info-button button middle" id="magic-button" >
+                <audio id="info-audio"></audio>
+                <i >i</i>
+                </div>    
+                <div class="buttonMute" id="mutebtn" onclick="AudioHandler.toggleMode()">
+                <!-- <img id="mute-icon" src="images/sound-off.png"> -->
+                 <i  id="volume" class="fa fa-volume-up" aria-hidden="true"></i>
+                </div>
+             </div>   
+            
             <div class="modal-wrapper">
                 <div class="modal hidden" id="modal">
                      <h2>Pravila Igre Duplanje: Crvena ili Crna</h2>
