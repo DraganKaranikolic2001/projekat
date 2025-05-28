@@ -18,7 +18,7 @@
                 <img class="logo-img" id="logo" src="images/logo.png">
             </div>
              <div class="gamble-box" id="gamble-box-id">
-                <audio src="sounds/CardsMove.mp3" id="gif-sound" loop></audio>
+                <audio id="gif-sound"></audio>
                 <img class="gamble-card-stack"  id="gamble-card" src="images/gamble/cards-min.png">
                 <img class="gamble-card-gif" id="gamble-gif" src = "images/gamble/redblack.gif">
             </div>
@@ -38,18 +38,21 @@
                     </div>
             </div>
             <div class="gamble-button button middle" id="black-button" onclick="clickBlack()">
-                <audio id="black-audio" src="sounds/BlackButtonClick.mp3" autostart="false"></audio>
+                <audio id="black-audio"></audio>
                 BLACK</div>
             <div class="gamble-button button middle" id="red-button" onclick="clickRed()">
-                <audio id="red-audio" src="sounds/RedButtonClick.mp3" autostart="false"></audio>
+                <audio id="red-audio"></audio>
                 RED</div>
-            <div class="info-button button middle" id="magic-button" onclick="clickInfo()">
-                <audio id="info-audio" src="sounds/ChangeHelp.mp3" autostart="false"></audio>
+            <div class="info-button button middle" id="magic-button" >
+                <audio id="info-audio"></audio>
                 <i >i</i>
             </div>
              <div class="gamble-button button middle hidden" id="win-button" onclick="clickTakeWin()">
-                <audio id="take-win-audio" src="sounds/ToCredit.mp3" autostart="false"></audio>
+                <audio id="take-win-audio"></audio>
                 TAKE WIN</div>
+            <div class="button" id="mutebtn" onclick="AudioHandler.toggleMute()">
+                <img id="mute-icon" src="images/sound-off.png">
+            </div>
             <div class="modal-wrapper">
                 <div class="modal hidden" id="modal">
                      <h2>Pravila Igre Duplanje: Crvena ili Crna</h2>

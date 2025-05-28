@@ -161,45 +161,48 @@ const overlay= document.querySelector('.overlay');
 function open(){
     modal.classList.remove('hidden');
     overlay.classList.remove('hidden');
+    AudioHandler.play('help');
+    AudioHandler.stop('gif');
 }
 magic.addEventListener('click', open);
 
 function close(){
     modal.classList.add('hidden');
     overlay.classList.add('hidden');
-    playGifSound();
+   AudioHandler.play('gif');
 }
 x.addEventListener('click',close);
 overlay.addEventListener('click',close);
 //-----------------------------------------
 
 //Funkcije za zvuk
-function clickInfo(){
-    var sound=document.getElementById('info-audio');
-    sound.play();
-    stopGifSound();
-}
 function clickRed(){
-    stopGifSound();
-    var sound=document.getElementById('red-audio')
-    sound.play();
+    // stopGifSound();
+    // var sound=document.getElementById('red-audio')
+    // sound.play();
+    AudioHandler.stop('gif');
+    AudioHandler.play('red');
     gamble('red');
 }
 
 function clickBlack(){
-    stopGifSound();
-    var sound=document.getElementById('black-audio')
-    sound.play();
+    // stopGifSound();
+    // var sound=document.getElementById('black-audio')
+    // sound.play();
+    AudioHandler.stop('gif');
+    AudioHandler.play('black');
     gamble('black');
 }
 function clickTakeWin(){
     
-    
+    AudioHandler.stop('gif');
+    AudioHandler.play('take');
     document.getElementById("gamble-amount-to-win").textContent = "0.00";
     document.getElementById("gamble-attempts").textContent = "0";
     document.getElementById("gamble-to-win").textContent="0.00";
-    var sound=document.getElementById('take-win-audio');
-    sound.play();
+    // var sound=document.getElementById('take-win-audio');
+    // sound.play();
+   
     alert("Svaka cast! Zaradio si: " + gambleAmount + " Eura!");
     
     
@@ -213,15 +216,16 @@ function clickTakeWin(){
 window.addEventListener('DOMContentLoaded', function(){
     console.log(gambleAmount);
     console.log(gambleAmount*2);
+    AudioHandler.init();
 
+    console.log("Dostupni zvuci:", AudioHandler.sounds);
     document.getElementById('gamble-amount-to-win').textContent=gambleAmount;
     document.getElementById('gamble-to-win').textContent=(gambleAmount*2).toFixed(2);
     const ucitaneKarte= JSON.parse(this.localStorage.getItem("slikeKarata"));
     console.log(ucitaneKarte);
     appendCards(ucitaneKarte);
-    // const gifSound = document.getElementById("gif-sound");
-    // gifSound.play();
-    playGifSound();
+    AudioHandler.play('gif');
+    // playGifSound();
 })
 //-----------------------------------------------------------
 
@@ -231,8 +235,8 @@ function generateCard() {
     const cards = [
         { src: 'images/gamble/1-min.png', color: 'red' },
         { src: 'images/gamble/3-min.png', color: 'red' },
-                // { src: 'images/gamble/0-min.png',  color: 'black' },
-                // { src: 'images/gamble/2-min.png', color: 'black' }
+        // { src: 'images/gamble/0-min.png',  color: 'black' },
+        // { src: 'images/gamble/2-min.png', color: 'black' }
     ];
 
     const randomIndex = Math.floor(Math.random() * cards.length);
@@ -253,9 +257,9 @@ function gamble(playerChoice){
     console.log(historyCards);
      setTimeout(() => {
         img.src = "images/gamble/redblack.gif";
-        playGifSound();
+            AudioHandler.play('gif');
         if(playerChoice!==result)
-            stopGifSound()
+            AudioHandler.stop('gif');
     }, 500);
     
     
@@ -269,8 +273,8 @@ function gamble(playerChoice){
 
         console.log(currentAttempts);
         document.getElementById("win-button").classList.remove("hidden");
-        
-        playSound('win');
+        AudioHandler.play('win');
+        // playSound('win');
         if(currentAttempts>=maxAttempts){
             collectWinnings();
         }
@@ -283,7 +287,8 @@ function gamble(playerChoice){
         document.getElementById('gamble-amount-to-win').textContent=parseFloat(gambleAmount).toFixed(2);
         document.getElementById("gamble-attempts").textContent=0;
         document.getElementById("gamble-to-win").textContent=parseFloat(gambleAmount).toFixed(2);
-        playSound('lose');
+        AudioHandler.play('lose');
+        // playSound('lose');
         resetPage();
 
 
@@ -303,27 +308,140 @@ function resetPage(){
        setTimeout(()=>location.reload(),2500);
 }
 //Zvukovi
-function playGifSound(){
-    const gifSound = document.getElementById("gif-sound");
-    gifSound.currentTime = 0;
-    gifSound.play();
-    gifSound.volume=0.4;
-}
 
-function playSound(type) {
-    const audio = new Audio(type === 'win' ? 'sounds/RedBlackWin.mp3' : 'sounds/RedBlackLose.mp3');
-    audio.play();
-}
+const Sound= Object.freeze({
 
-function stopGifSound() {
-    const gifSound = document.getElementById("gif-sound");
-    gifSound.volume=0;
+    BlackButton : {
+        id: 'black',
+        src : 'sounds/BlackButtonClick.mp3',
+        volume: '1.0'
+    },
+    RedButton : {
+        id: 'red',
+        src: 'sounds/RedButtonClick.mp3',
+        volume: '1.0'
+    },
+    HelpButton : {
+        id : 'help',
+        src : 'sounds/ChangeHelp.mp3',
+        volume : '1.0'
+    },
+    Win : {
+        id: 'win',
+        src : 'sounds/RedBlackWin.mp3',
+        volume : '1.0'
+    },
+    Lose : {
+        id: 'lose',
+        src : 'sounds/RedBlackLose.mp3',
+        volume :'1.0'
+    },
+    Gif : {
+        id: 'gif',
+        src : 'sounds/CardsMove.mp3',
+        volume : '0.7',
+        loop: true
+    },
+    Take : {
+        id : 'take',
+        src : 'sounds/ToCredit.mp3',
+        volume : '1.0'
+    }
+});
+
+const AudioHandler = {
+    sounds : {},
+    isMuted: false,
+    soundPic: document.getElementById("mute-icon"),
+
+    init () {
+        for (let key in Sound){
+            const soundData = Sound[key];
+            const audio = new Audio(soundData.src);
+            audio.volume= soundData.volume || 0.7;
+            audio.loop=soundData.loop;
+            this.sounds[soundData.id]=audio;
+        }
+    },
+    play(id){
+        if(this.isMuted) return;
+        const sound=this.sounds[id];
+        if(sound){
+            sound.currentTime=0;
+            sound.play();
+        }
+        else{
+            console.warn("Zvuk nije pronadjen",id);
+        }
+    },
+    stop(id){
+        const sound=this.sounds[id]
+        if(sound){
+            sound.pause();
+            sound.currentTime=0;
+        }
+    },
+    setVolume(id,value){
+        const sound=this.sounds[id];
+        if(sound){
+            sound.volume=value;
+        }
+    },
+    muteAll(){
+        this.isMuted=true;
+        for(let x in this.sounds)
+            this.sounds[x].volume=0;
+        this.soundPic.src="images/sound-on.png"
+
+    },
+    unMuteAll(){
+        this.isMuted=false;
+        for (let x in Sound){
+            const soundData= Sound[x];
+            const sound = this.sounds[soundData.id];
+             if(sound) {
+                sound.volume = soundData.volume;
+                if(soundData.id=='gif')
+                    sound.play();
+                // if(sound.id==6)
+                //     sound.play();
+            }
+        }
+        this.soundPic.src="images/sound-off.png"
+    },
+    toggleMute() {
+    if (this.isMuted) {
+        this.unMuteAll();
+    } else {
+        this.muteAll();
+    }
+    }
+};
     
-}
+
+// function playGifSound(){
+//     const gifSound = document.getElementById("gif-sound");
+//     gifSound.currentTime = 0;
+//     gifSound.play();
+//     gifSound.volume=0.4;
+// }
+
+// function playSound(type) {
+//     const audio = new Audio(type === 'win' ? 'sounds/RedBlackWin.mp3' : 'sounds/RedBlackLose.mp3');
+//     audio.play();
+// }
+
+// function stopGifSound() {
+//     const gifSound = document.getElementById("gif-sound");
+//     gifSound.volume=0;
+    
+// }
 //--------------------------------------------------------------
 
 function collectWinnings()
-{
+{   
+
+    AudioHandler.play("take");
     alert("Svaka cast majstore! Zaradio si: " + gambleAmount.toFixed(2) + " Eura!");
     
     resetPage();
@@ -360,9 +478,13 @@ function appendCards(cards)
 
 //--------------------------------------
 
-//sve resize da stavim u 1 fju
-//kad se pokrene igra da uvek ima 5k kredita, gamble amount je 50 i da se svaki put kad il izgubi il dodje do 5 da mu se doda/oduzme vrednost i nastavi igra
 //da napravim 1 fju za yvuk preko enumarecije
+//sve resize da stavim u 1 fju
+
+
+//kad se pokrene igra da uvek ima 5k kredita, gamble amount je 50 i da se svaki put kad il izgubi il dodje do 5 da mu se doda/oduzme vrednost i nastavi igra
 //zvuk dugme 3 nivo(mute,0,4,0,8)
 //Kad se ucitava igra da se pita da li zeli zvuk ili ne
 //portrait ako ostane vremena
+
+//kad kliknem mute dugme i klinem red ili black pa unmute ne vraca se zvuk za gif
