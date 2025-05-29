@@ -296,6 +296,7 @@ window.addEventListener('DOMContentLoaded', function(){
     console.log(gambleAmount);
     console.log(gambleAmount*2);
     AudioHandler.init();
+    AudioHandler.setMode('mute');
 
     console.log("Dostupni zvuci:", AudioHandler.sounds);
     document.getElementById('gamble-amount-to-win').textContent=gambleAmount;
@@ -303,10 +304,23 @@ window.addEventListener('DOMContentLoaded', function(){
     const ucitaneKarte= JSON.parse(this.localStorage.getItem("slikeKarata"));
     console.log(ucitaneKarte);
     appendCards(ucitaneKarte);
-    AudioHandler.play('gif');
     // playGifSound();
 })
 //-----------------------------------------------------------
+//Prozor za zvuk na pocetku ucitavanja igrice
+const doc1= document.querySelector(".intro-button-yes");
+const doc2= document.querySelector(".intro-button-no");
+const intro=document.querySelector(".intro");
+volumeIcon= document.getElementById("volume"),
+doc1.addEventListener('click',(e)=>{
+    intro.style.display="none";
+    AudioHandler.setMode("on");
+})
+doc2.addEventListener('click',(e)=>{
+    intro.style.display="none";
+    volumeIcon.classList.replace("fa-volume-up","fa-volume-off");
+})
+//------------------------------------------------------------
 
 
 
@@ -634,6 +648,7 @@ function appendCards(cards)
     });
 }
 
+
 //--------------------------------------
 
 //da napravim 1 fju za yvuk preko enumarecije
@@ -644,5 +659,3 @@ function appendCards(cards)
 //zvuk dugme 3 nivo(mute,0,4,0,8)
 //Kad se ucitava igra da se pita da li zeli zvuk ili ne
 //portrait ako ostane vremena
-
-//kad kliknem mute dugme i klinem red ili black pa unmute ne vraca se zvuk za gif
