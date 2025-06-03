@@ -12,34 +12,69 @@ function resizeAll(){
 
     //Glavi prozor i modalni prozor
     const el=document.getElementById("main-page");
-    const width=window.innerWidth;
-    const height=window.innerHeight;
+    let width=window.innerWidth;
+    let height=window.innerHeight;
 
     const wrapper = document.querySelector(".modal-wrapper");
     const modal = document.getElementById("modal");
 
 
-    el.style.width=width+"px";
-    el.style.height=height+"px";
-    const ratio=16/9;
+    // el.style.width=width+"px";
+    // el.style.height=height+"px";
+
+
+    const isPortrait = window.matchMedia("(orientation: portrait)").matches;
+    if (isPortrait) {
+        console.log("1");
+    }
+    else{
+        console.log("2");
+    }
+
+     const ratio=16/9;
+
+    const aspect = window.innerWidth / window.innerHeight;
+    if(aspect<1){
+        const ratio1=9/16;
+        if((width/height)>ratio1){
+            el.style.height = height + "px";
+            el.style.width = height*ratio1 + "px";
+        }
+        else{
+            el.style.width=width+"px";
+            el.style.height-width/ratio1+"px";
+        }
+        // let bas=el.clientWidth;
+        // const elButtons=document.querySelectorAll(".button");
+        //  elButtons.forEach(e=>{
+        // e.style.fontSize=(bas*0.04)+"px";
+        // })
+        // wrapper.style.width = width + "px";
+        // wrapper.style.height = height + "px";
+   
+    }
+    else{
+       
     //Ovo se odnosi na ratio 16:9 da uvek bude takkav kako god klijent namestio prozor(window)
-    if((width/height)<ratio)
-    {
-        el.style.width=width+"px";
-        el.style.height=width/ratio+"px";
+        if((width/height)<ratio)
+        {
+            el.style.width=width+"px";
+            el.style.height=width/ratio+"px";
 
-        wrapper.style.width = width + "px";
-        wrapper.style.height = (width / ratio) + "px";
+            wrapper.style.width = width + "px";
+            wrapper.style.height = (width / ratio) + "px";
+        }
+        else
+        {
+            el.style.height=height+"px";
+            el.style.width=height*ratio+"px";
+
+            wrapper.style.height = height + "px";
+            wrapper.style.width = (height * ratio) + "px";
+        }
+
     }
-    else
-    {
-        el.style.height=height+"px";
-        el.style.width=height*ratio+"px";
-
-        wrapper.style.height = height + "px";
-        wrapper.style.width = (height * ratio) + "px";
-    }
-
+    
     modal.style.width = (wrapper.clientWidth * 0.7) + "px";
     modal.style.maxHeight = (wrapper.clientHeight * 0.8) + "px";
 
@@ -318,7 +353,6 @@ doc1.addEventListener('click',(e)=>{
 })
 doc2.addEventListener('click',(e)=>{
     intro.style.display="none";
-    volumeIcon.classList.replace("fa-volume-up","fa-volume-off");
 })
 //------------------------------------------------------------
 
@@ -649,6 +683,22 @@ function appendCards(cards)
 }
 
 
+
+function updateBackground() {
+  const img = document.getElementById("pictureGamble");
+  const aspect=window.innerWidth/window.innerHeight;
+  if (aspect<1) {
+    img.src = "images/gamble-background-portrait.png";
+  } else {
+    img.src = "images/gamble-background-min.png";
+  }
+}
+const portraitMediaQuery = window.matchMedia("(orientation: portrait)");
+portraitMediaQuery.addEventListener("change", updateBackground);
+window.addEventListener("resize", updateBackground);
+window.addEventListener("DOMContentLoaded", updateBackground);
+
+
 //--------------------------------------
 
 //da napravim 1 fju za yvuk preko enumarecije
@@ -659,3 +709,6 @@ function appendCards(cards)
 //zvuk dugme 3 nivo(mute,0,4,0,8)
 //Kad se ucitava igra da se pita da li zeli zvuk ili ne
 //portrait ako ostane vremena
+
+
+//da odvojim js fajlove po zvuku, resize za landscape, resize za portrait, zajednice fju staviti u odvojen fajl i napraviti gettere
