@@ -117,7 +117,6 @@ body{
     height: 11.5%;
     width: 15%;
     background-color: black;
-    font-size: 1000px;
 
 }
 #red-button{
@@ -316,15 +315,63 @@ body{
     align-items: center; 
     color:white;
 }
+ .history-card-img{
+        width: 18%;
+        height: auto;
+        object-fit: contain;
+    }
 
 /* MOBILE*/
 
 @media  only screen  and (orientation: portrait) {
     
-    .history-title{
-        position: absolute;
-        z-index: 200;
-        color: red;
+  
+    #gamble-gif{
+        height: 80%;
+        width: 45%;
+        left: 10%;
+        top: 10%;
     }
+    #gamble-card{
+        display: none;
+    }
+    #black-button{
+        width: 30%;
+        right: 5%;
+        top: 27%;
+    }
+    #red-button{
+        width: 30%;
+        right: 5%;
+        top: 42%;
+    }
+    #win-button{
+        width: 30%;
+        right: 5%;
+        top: 57%;
+    }
+    .logo-img{
+        display: none;
+    }
+    .history-card{
+        top: 3%;
+        left: 30%;
+        width: 40%;
+        margin: 2%;
+    }
+     .history-card-img{
+        width: 32%;
+        height: auto;
+        object-fit: contain;
+    }
+    .gamble-info{
+        bottom: 4%;
+        width: 60%;
+    }
+    .info-volume-wrapper{
+        width: 30%;
+        gap: 8%;
+    }
+
 }
 

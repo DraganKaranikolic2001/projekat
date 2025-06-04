@@ -54,7 +54,7 @@
                 <audio id="info-audio"></audio>
                 <i >i</i>
                 </div>    
-                <div class="buttonMute" id="mutebtn" onclick="AudioHandler.toggleMode()">
+                <div class="buttonMute button" id="mutebtn" onclick="AudioHandler.toggleMode()">
                 <!-- <img id="mute-icon" src="images/sound-off.png"> -->
                  <i  id="volume" class="fa fa-volume-off" aria-hidden="true"></i>
                 </div>
@@ -62,7 +62,7 @@
             
             <div class="modal-wrapper">
                 <div class="modal hidden" id="modal">
-                     <h2>Pravila Igre Duplanje: Crvena ili Crna</h2>
+                     <h2 id="titleModal">Pravila Igre Duplanje: Crvena ili Crna</h2>
                     <p>-Nakon svake pobede u osnovnoj igri, igrač dobija priliku da <strong>duplira dobitak</strong> kroz mini-igru "Crvena ili Crna".</p>
                     <p>-Igrač bira da li će karta biti <strong>crvena (herc/karo)</strong> ili <strong>crna (pik/tref)</strong>.</p>
                     <p>-Ako pogodi boju, dobitak se <strong>udvostručuje</strong> i može pokušati ponovo.</p>
@@ -84,6 +84,9 @@
             </div>
             
         </div>
+    <script src="sound.js"></script>
+     <script src="landspace.js"></script>
+     <script src="portrait.js"></script>
      <script src="logika.js"></script>
 </body>    
 </html>
