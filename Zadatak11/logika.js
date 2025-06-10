@@ -1,21 +1,17 @@
-// import {AudioHandler} from '/.sound.js';
-
-
-
-
-
 
 const slika=document.getElementById("pictureGamble");
-const maxAttempts=5;
+ const maxAttempts=5;
 let currentAttempts=0;
-let gambleAmount = ((Math.random())*100).toFixed(2); 
+let gambleAmount = ((Math.random())*100).toFixed(2);
+let amount = 500;
+
 
 let historyCards=[];
 
 function resizeMaster(){
     const img = document.getElementById("pictureGamble");
     const aspect= window.innerWidth/window.innerHeight;
-    if(aspect<1){
+    if(aspect<=1){
         resizePortrait();
          img.src = "images/gamble-background-portrait.png";
     }
@@ -24,62 +20,33 @@ function resizeMaster(){
         img.src = "images/gamble-background-min.png";
     }
 }
-
+const landscapeMediaQuery= window.matchMedia("(orientaion:landspace)");
+landscapeMediaQuery.addEventListener("change",resizeMaster);
 const portraitMediaQuery = window.matchMedia("(orientation: portrait)");
 portraitMediaQuery.addEventListener("change", resizeMaster);
 
-
 //Utility helper da se ne duplira kod
-
 function resizeAndLoadEvents(fns){
     fns.forEach(fn=>{
         window.addEventListener("resize",fn);
         window.addEventListener("load",fn);
     });
 }
-
 resizeAndLoadEvents([
     resizeMaster
 ]);
+//--------------------------------------------------------------------
 
-//----------------------------------------
-//Funkcije za modalni prozor
-const magic= document.querySelector('.info-button');
-const modal= document.querySelector('.modal');
-const x= document.querySelector('.x');
-const overlay= document.querySelector('.overlay');
-
-function open(){
-    modal.classList.remove('hidden');
-    overlay.classList.remove('hidden');
-    AudioHandler.play('help');
-    AudioHandler.stop('gif');
-}
-magic.addEventListener('click', open);
-
-function close(){
-    modal.classList.add('hidden');
-    overlay.classList.add('hidden');
-   AudioHandler.play('gif');
-}
-x.addEventListener('click',close);
-overlay.addEventListener('click',close);
-//-----------------------------------------
-
-//Funkcije za zvuk
+//Funkcije za klik na dugmad
 function clickRed(){
-    // stopGifSound();
-    // var sound=document.getElementById('red-audio')
-    // sound.play();
+   
     AudioHandler.stop('gif');
     AudioHandler.play('red');
     gamble('red');
 }
 
 function clickBlack(){
-    // stopGifSound();
-    // var sound=document.getElementById('black-audio')
-    // sound.play();
+   
     AudioHandler.stop('gif');
     AudioHandler.play('black');
     gamble('black');
@@ -91,55 +58,28 @@ function clickTakeWin(){
     document.getElementById("gamble-amount-to-win").textContent = "0.00";
     document.getElementById("gamble-attempts").textContent = "0";
     document.getElementById("gamble-to-win").textContent="0.00";
-    // var sound=document.getElementById('take-win-audio');
-    // sound.play();
-   
     alert("Svaka cast! Zaradio si: " + gambleAmount + " Eura!");
-    
-    
     resetPage();
-
-     
 }
 //------------------------------------------
 
-//Ucitavanja vrednosti i zvuka za mesanje karata
+//Ucitavanja vrednosti , zvuka i ostalih handler-a
 window.addEventListener('DOMContentLoaded', function(){
-    console.log(gambleAmount);
-    console.log(gambleAmount*2);
     AudioHandler.init();
+    modalWindow.Events();
+    introHandler.introEvents();
     AudioHandler.setMode('mute');
 
     console.log("Dostupni zvuci:", AudioHandler.sounds);
     document.getElementById('gamble-amount-to-win').textContent=gambleAmount;
     document.getElementById('gamble-to-win').textContent=(gambleAmount*2).toFixed(2);
-    const ucitaneKarte= JSON.parse(this.localStorage.getItem("slikeKarata"));
+    // const ucitaneKarte= JSON.parse(this.localStorage.getItem("slikeKarata"));
     // console.log(ucitaneKarte);
     // appendCards(ucitaneKarte);
-
-
-    const el11=this.document.querySelector("p");
-    const fontSize=this.window.getComputedStyle(el11).fontSize;
-    console.log(fontSize);
-    // playGifSound();
 })
 //-----------------------------------------------------------
-//Prozor za zvuk na pocetku ucitavanja igrice
-const doc1= document.querySelector(".intro-button-yes");
-const doc2= document.querySelector(".intro-button-no");
-const intro=document.querySelector(".intro");
-volumeIcon= document.getElementById("volume"),
-doc1.addEventListener('click',(e)=>{
-    intro.style.display="none";
-    AudioHandler.setMode("on");
-})
-doc2.addEventListener('click',(e)=>{
-    intro.style.display="none";
-})
-//------------------------------------------------------------
 
-
-
+// Funkcije za logiku oko karata za crno i crveno
 function generateCard() {
     const cards = [
         { src: 'images/gamble/1-min.png', color: 'red' },
@@ -151,7 +91,6 @@ function generateCard() {
     const randomIndex = Math.floor(Math.random() * cards.length);
     return cards[randomIndex];
 }
-
 
 function gamble(playerChoice){
 
@@ -224,6 +163,7 @@ function collectWinnings()
     alert("Svaka cast majstore! Zaradio si: " + gambleAmount.toFixed(2) + " Eura!");
     
     resetPage();
+    //Ovde dodati promenu stanja kredita, currattempts na nula i bet na 50;
 }
 // Istorija karata
 
@@ -246,28 +186,26 @@ function updateHistory(card) {
         historyContainer.appendChild(cardImg);
     });
 }
-// function appendCards(cards)
-// {
-//     const historyContainer = document.getElementById("history-card");
 
-//     cards.forEach(c => {
-//         const cardImg = document.createElement("img");
-//         cardImg.src = c.src;
-//         cardImg.classList.add("history-card-img");
-//         historyContainer.appendChild(cardImg);
-//     });
-// }
+/*function appendCards(cards)
+{
+    const historyContainer = document.getElementById("history-card");
+
+    cards.forEach(c => {
+        const cardImg = document.createElement("img");
+        cardImg.src = c.src;
+       cardImg.classList.add("history-card-img");
+        historyContainer.appendChild(cardImg);
+    });
+}*/
 
 
 
-//da napravim 1 fju za yvuk preko enumarecije
-//sve resize da stavim u 1 fju
+// napraviti koliko zeli bet da ima u smislu kruzic sa minusom i plusom dokle moze da ide, napraviti niz za svim betovima mogucim 10,20,40,50,100
+//kad dodje do max beta da se vrati na min bet u smislu da bude kruzno
 
 
 //kad se pokrene igra da uvek ima 5k kredita, gamble amount je 50 i da se svaki put kad il izgubi il dodje do 5 da mu se doda/oduzme vrednost i nastavi igra
-//zvuk dugme 3 nivo(mute,0,4,0,8)
-//Kad se ucitava igra da se pita da li zeli zvuk ili ne
-//portrait ako ostane vremena
 
 
-//da odvojim js fajlove po zvuku, resize za landscape, resize za portrait, zajednice fju staviti u odvojen fajl i napraviti gettere
+//u  portrati za info deo dodati outline
