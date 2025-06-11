@@ -2,8 +2,52 @@
 const slika=document.getElementById("pictureGamble");
  const maxAttempts=5;
 let currentAttempts=0;
-let gambleAmount = ((Math.random())*100).toFixed(2);
+
+
+
+
 let amount = 500;
+
+
+let i =0;
+
+
+const betAmount = [20,40,60,80,100];
+
+var gambleAmount =parseFloat(betAmount[i]);
+var amountOrigin=parseFloat(betAmount[i]);// povlacicemo iz div gde se podesava kao gamblke amount
+
+function increment(){
+    i++;
+    console.log(i);
+    if(i>4)
+        i=0;
+    appendInfoToAll();
+    gambleAmount =parseFloat(betAmount[i]);
+    amountOrigin=parseFloat(betAmount[i]);
+    console.log( "Amount origin, odnosno koliko se skida ako se pogresi: " + amountOrigin);
+    console.log("Amount: " + amount);
+    console.log( "Gamble amount: " + gambleAmount);
+}
+
+function decrement(){
+    i--;
+    if(i<0)
+        i=4;
+    appendInfoToAll();
+    gambleAmount =parseFloat(betAmount[i]);
+    amountOrigin=parseFloat(betAmount[i]);
+    console.log( "Amount origin, odnosno koliko se skida ako se pogresi: " + amountOrigin);
+    console.log("Amount: " + amount);
+    console.log( "Gamble amount: " + gambleAmount);
+
+}
+
+function appendInfoToAll(){
+    document.querySelector(".gamble-amount").textContent=betAmount[i].toFixed(2);
+    document.getElementById('gamble-amount-to-win').textContent=betAmount[i].toFixed(2);
+    document.getElementById('gamble-to-win').textContent=(betAmount[i]*2).toFixed(2);
+}
 
 
 let historyCards=[];
@@ -39,10 +83,11 @@ resizeAndLoadEvents([
 
 //Funkcije za klik na dugmad
 function clickRed(){
-   
+
     AudioHandler.stop('gif');
     AudioHandler.play('red');
     gamble('red');
+
 }
 
 function clickBlack(){
@@ -50,15 +95,16 @@ function clickBlack(){
     AudioHandler.stop('gif');
     AudioHandler.play('black');
     gamble('black');
+   
 }
 function clickTakeWin(){
-    
+    amount+=gambleAmount;
     AudioHandler.stop('gif');
     AudioHandler.play('take');
-    document.getElementById("gamble-amount-to-win").textContent = "0.00";
-    document.getElementById("gamble-attempts").textContent = "0";
-    document.getElementById("gamble-to-win").textContent="0.00";
-    alert("Svaka cast! Zaradio si: " + gambleAmount + " Eura!");
+    // document.getElementById("gamble-amount-to-win").textContent = "0.00";
+    // document.getElementById("gamble-attempts").textContent = "0";
+    // document.getElementById("gamble-to-win").textContent="0.00";
+    alert("Svaka cast! Zaradio si: " + gambleAmount + " Eura!" +"u kasi imas : "+ amount);
     resetPage();
 }
 //------------------------------------------
@@ -71,8 +117,15 @@ window.addEventListener('DOMContentLoaded', function(){
     AudioHandler.setMode('mute');
 
     console.log("Dostupni zvuci:", AudioHandler.sounds);
-    document.getElementById('gamble-amount-to-win').textContent=gambleAmount;
-    document.getElementById('gamble-to-win').textContent=(gambleAmount*2).toFixed(2);
+
+    console.log( "Amount origin, odnosno koliko se skida ako se pogresi: " + amountOrigin);
+    console.log("Amount: " + amount);
+    console.log( "Gamble amount: " + gambleAmount);
+
+    
+    appendInfoToAll();
+
+    this.document.querySelector(".amount").textContent=amount.toFixed(2);
     // const ucitaneKarte= JSON.parse(this.localStorage.getItem("slikeKarata"));
     // console.log(ucitaneKarte);
     // appendCards(ucitaneKarte);
@@ -92,11 +145,13 @@ function generateCard() {
     return cards[randomIndex];
 }
 
+
 function gamble(playerChoice){
 
     const resultCard=generateCard();
     const result=resultCard.color;
-    console.log(result);
+    
+    
 
     const img=document.getElementById("gamble-gif");
     img.src=resultCard.src;
@@ -111,9 +166,15 @@ function gamble(playerChoice){
     }, 500);
     
     
+   
+
     if(playerChoice===result){
         gambleAmount*=2;
         currentAttempts++;
+
+        console.log( "Amount origin, odnosno koliko se skida ako se pogresi: " + amountOrigin);
+        console.log("Amount: " + amount);
+        console.log( "Gamble amount: " + gambleAmount);
 
         document.getElementById('gamble-amount-to-win').textContent=gambleAmount.toFixed(2);
         document.getElementById("gamble-attempts").textContent=maxAttempts-currentAttempts;
@@ -124,17 +185,15 @@ function gamble(playerChoice){
         AudioHandler.play('win');
         // playSound('win');
         if(currentAttempts>=maxAttempts){
-            collectWinnings();
+            collectWinnings(gambleAmount);
         }
 
     }
     else{
-       
-       gambleAmount=0; 
-        currentAttempts=0;
-        document.getElementById('gamble-amount-to-win').textContent=parseFloat(gambleAmount).toFixed(2);
-        document.getElementById("gamble-attempts").textContent=0;
-        document.getElementById("gamble-to-win").textContent=parseFloat(gambleAmount).toFixed(2);
+        amount-=amountOrigin;
+        // document.getElementById('gamble-amount-to-win').textContent=parseFloat(gambleAmount).toFixed(2);
+        // document.getElementById("gamble-attempts").textContent=0;
+        // document.getElementById("gamble-to-win").textContent=parseFloat(gambleAmount).toFixed(2);
         AudioHandler.play('lose');
         // playSound('lose');
         resetPage();
@@ -145,25 +204,41 @@ function gamble(playerChoice){
 
 function resetPage(){
 
-    localStorage.setItem("slikeKarata",JSON.stringify(historyCards));
+    // localStorage.setItem("slikeKarata",JSON.stringify(historyCards));
    
-    const blackout = document.getElementById("blackout");
-        blackout.style.display = "block";
-        setTimeout(() => {
-        blackout.style.opacity = "1";
-        }, 1500);
+    // const blackout = document.getElementById("blackout");
+    //     blackout.style.display = "block";
+    //     setTimeout(() => {
+    //     blackout.style.opacity = "1";
+    //     }, 1500);
 
-       setTimeout(()=>location.reload(),2500);
+    //    setTimeout(()=>blackout.style.display="none",2500);
+    this.document.querySelector(".amount").textContent=amount.toFixed(2);
+    console.log( "Amount origin, odnosno koliko se skida ako se pogresi: " + amountOrigin);
+    console.log("Amount: " + amount);
+    console.log( "Gamble amount: " + gambleAmount);
+    gambleAmount=betAmount[i];
+    currentAttempts=0;
+    document.getElementById('gamble-amount-to-win').textContent=gambleAmount.toFixed(2);
+    document.getElementById("gamble-attempts").textContent=maxAttempts-currentAttempts;
+    document.getElementById("gamble-to-win").textContent=(gambleAmount*2).toFixed(2);
+
+    document.getElementById("win-button").classList.add("hidden");
+
 }
 
-function collectWinnings()
+function collectWinnings(x)
 {   
-
+    
     AudioHandler.play("take");
-    alert("Svaka cast majstore! Zaradio si: " + gambleAmount.toFixed(2) + " Eura!");
+    amount+=x;
+    this.document.querySelector(".amount").textContent=amount.toFixed(2);
+    console.log( "Amount origin, odnosno koliko se skida ako se pogresi: " + amountOrigin);
+    console.log("Amount: " + amount);
+    console.log( "Gamble amount: " + gambleAmount);
+    alert("Svaka cast majstore! Zaradio si: " + gambleAmount.toFixed(2) + " Eura!"+ "U banci imas: "+ amount);
     
     resetPage();
-    //Ovde dodati promenu stanja kredita, currattempts na nula i bet na 50;
 }
 // Istorija karata
 
@@ -172,8 +247,8 @@ function updateHistory(card) {
 
     historyCards.push(card);
 
-    if (historyCards.length > 4) {
-        historyCards.pop();
+    if (historyCards.length >4) {
+        historyCards.shift();
     }
 
     historyContainer.innerHTML="";

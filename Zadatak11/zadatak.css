@@ -105,7 +105,7 @@ body{
     outline: none;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
-.gamble-button,.info-button,#mutebtn{
+.gamble-button,.info-button,#mutebtn,.up-button,.down-button{
     border-radius: 1vh;
     border: 0.1vh solid white;
     color:white;
@@ -140,7 +140,7 @@ body{
     height: 11.5%;
     width: 15%;
     background-color: green;
-    right:17%;
+    right:14.5%;
     bottom: 12%;
 }
 
@@ -320,6 +320,45 @@ body{
         height: auto;
         object-fit: contain;
     }
+.bet-wrapper{ 
+    position: absolute;
+    width: 12%;
+    height: 5%;
+    bottom: 15%;
+    right: 31%;
+    gap:2px;
+}
+.up-button{
+    flex: 1; 
+    width: 25%;
+    padding: 2px;
+    color:white;
+}
+.down-button{
+    flex: 1;
+    width: 25%;
+    padding: 2px;
+    color:white;
+}
+.gamble-amount{
+    flex: 2;
+    min-width: 0;
+    font-size: 1.5vw;
+}
+.amount-wrapper{ 
+    position: absolute;
+    width: 12%;
+    height: 5%;
+    bottom: 5%;
+    right: 31%;
+    gap:2px;
+}
+.text-amount{
+    color: white;
+}
+.amount{
+    color:White;
+}
 
 /* MOBILE*/
 
