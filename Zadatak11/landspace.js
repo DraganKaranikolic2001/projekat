@@ -25,8 +25,11 @@ function resizeLandscape(){
         modalWrapper.style.width=(height*ratio)+"px";
     }
     //Modalni prozor sa svim elementima
-    modal.style.maxHeight=(modalWrapper.clientHeight*0.8)+ "px";
-    modal.style.width=(modalWrapper.clientWidth*0.7)+ "px";
+    if((window.innerWidth/window.innerHeight)>1){
+        modal.style.maxHeight=(modalWrapper.clientHeight*0.8)+ "px";
+        modal.style.width=(modalWrapper.clientWidth*0.7)+ "px";
+    }
+   
 
     const baseForModal = modalWrapper.clientHeight;
     const titleModal= document.getElementById("titleModal");
@@ -58,12 +61,15 @@ function resizeLandscape(){
         e.style.fontSize=(baseForAll*0.04)+"px";
     })
     //------------------------------------------------------------
+    //Dugmici za total deo 
 
+    const infoForTotal= document.querySelector(".gamble-amount");
+    infoForTotal.style.fontSize=(baseForAll*0.04)+ "px";
     //Dugmici
 
     const buttonsEl=document.querySelectorAll(".button");
     buttonsEl.forEach(e=>{
-        e.style.fontSize=(baseForAll*0.04)+"px";
+        e.style.fontSize=(baseForAll*0.03)+"px";
     })
 
     const infoBtn= document.getElementById("magic-button");
@@ -81,7 +87,10 @@ function resizeLandscape(){
     infoBtn.style.width=IconSize+"px";
     infoBtn.style.height=IconSize+"px";
 
-    if(!document.getElementById("history-card").hasChildNodes())
+    const gambleLabel = document.querySelector(".gamble-label");
+    gambleLabel.style.fontSize=(baseForAll*0.04)+"px";
+
+    if((parseFloat(document.getElementById("gamble-attempts").textContent))==5)
      document.getElementById("win-button").classList.add("hidden");
 
 }
