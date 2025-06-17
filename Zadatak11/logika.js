@@ -79,29 +79,29 @@ function resizeAndLoadEvents(fns){
 resizeAndLoadEvents([
     resizeMaster
 ]);
-const hisDiv = document.getElementById("history");
-let leftPos=0;
-let startTime=null;
+// const hisDiv = document.getElementById("history");
+// let leftPos=0;
+// let startTime=null;
 
-function moveDiv(timestamp){
-    if(!startTime)
-    {
-        startTime=timestamp;
-    }
-    let progress=timestamp-startTime;
-    leftPos+=0.5;
-    hisDiv.style.left=leftPos+"px";
-    if(progress<2000){
-        requestAnimationFrame(moveDiv);
-    }
+// function moveDiv(timestamp){
+//     if(!startTime)
+//     {
+//         startTime=timestamp;
+//     }
+//     let progress=timestamp-startTime;
+//     leftPos+=0.5;
+//     hisDiv.style.left=leftPos+"px";
+//     if(progress<2000){
+//         requestAnimationFrame(moveDiv);
+//     }
     
-}
-requestAnimationFrame(moveDiv);
+// }
+// requestAnimationFrame(moveDiv);
 //--------------------------------------------------------------------
 
 //Funkcije za klik na dugmad
 function clickRed(){
-    if(amount<gambleAmount || amount==0)
+    if(amount<amountOrigin || amount==0)
     {   
         alert("Smanji bet !!!");
     }
@@ -115,7 +115,7 @@ function clickRed(){
 }
 
 function clickBlack(){
-    if(amount<gambleAmount)
+    if(amount<amountOrigin)
     {   
         alert("Smanji bet !!!");
         
@@ -159,9 +159,7 @@ window.addEventListener('DOMContentLoaded', function(){
     appendInfoToAll();
 
     this.document.getElementById("gamble-total").textContent=amount.toFixed(2);
-    // const ucitaneKarte= JSON.parse(this.localStorage.getItem("slikeKarata"));
-    // console.log(ucitaneKarte);
-    // appendCards(ucitaneKarte);
+    
 })
 //-----------------------------------------------------------
 
@@ -194,11 +192,14 @@ function gamble(playerChoice){
      setTimeout(() => {
         img.src = "images/gamble/redblack.gif";
             AudioHandler.play('gif');
-        if(playerChoice!==result)
+        if(playerChoice!==result){
             AudioHandler.stop('gif');
+            resetPage();
+        }
+            
     }, 500);
     
-     console.log(landscapeMediaQuery);
+     
    
 
     if(playerChoice===result){
@@ -240,7 +241,9 @@ function gamble(playerChoice){
         // document.getElementById("gamble-to-win").textContent=parseFloat(gambleAmount).toFixed(2);
         AudioHandler.play('lose');
         // playSound('lose');
-        resetPage();
+        // setTimeout(()=>{
+        //     resetPage();
+        // },600);
 
 
     }
@@ -250,7 +253,7 @@ function resetPage(){
 
     // localStorage.setItem("slikeKarata",JSON.stringify(historyCards));
    
-  
+    AudioHandler.play('gif');
     this.document.getElementById("gamble-total").textContent=amount.toFixed(2);
     console.log( "Amount origin, odnosno koliko se skida ako se pogresi: " + amountOrigin);
     console.log("Amount: " + amount);
