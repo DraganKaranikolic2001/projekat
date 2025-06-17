@@ -42,6 +42,14 @@
                         <p class="gamble-info-label" id="gamble-win-text">EARNINGS</p>
                         <p class="gamble-info-amount" id="gamble-win"></p>
                     </div>
+                    <div class="gamble-column">
+                        <p class="gamble-info-label" id="gamble-text">GAMBLE</p>
+                        <div class="bet-wrapper middle">
+                            <div class="up-button button buttonGamble middle" onclick="increment()" style="font-weight: bold; color : darkgreen">+</div>
+                            <div class="gamble-amount middle" ></div>
+                            <div class="down-button button buttonGamble middle" onclick="decrement()" style="font-weight: bold; color: red">-</div>
+                        </div>
+                    </div>
             </div>
             <div class="gamble-button button middle" id="black-button" onclick="clickBlack()">
                 <audio id="black-audio"></audio>
@@ -63,12 +71,7 @@
                  <i  id="volume" class="fa fa-volume-off" aria-hidden="true"></i>
                 </div>
              </div> 
-             <div class="gamble-label">GAMBLE</div>
-             <div class="bet-wrapper middle">
-                <div class="up-button button middle" onclick="increment()" style="font-weight: bold;">+</div>
-                <div class="gamble-amount middle" ></div>
-                <div class="down-button button middle" onclick="decrement()" style="font-weight: bold;">-</div>
-             </div>
+             
 
 
             

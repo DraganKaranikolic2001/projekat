@@ -25,7 +25,7 @@
     }
     
     modal.style.width=(modalWrapper.clientWidth*0.8 )+ "px";
-    modal.style.height=(modalWrapper.clientHeight*0.7)+"px";
+    modal.style.maxHeight=(modalWrapper.clientHeight*0.7)+"px";
 
     if((window.innerWidth/window.innerHeight)<=1)
     {
@@ -49,6 +49,10 @@
     const buttonsEl=document.querySelectorAll(".button");
     buttonsEl.forEach(e=>{
         e.style.fontSize=(baseForAll*0.04)+"px";
+    })
+    const buttonUpDown=document.querySelectorAll(".buttonGamble");
+    buttonUpDown.forEach(e=>{
+        e.style.fontSize=(baseForAll*0.05)+"px";
     })
     //History
     const historyEl= document.getElementById("history");
@@ -81,13 +85,6 @@
         e.style.fontSize=(baseForAll*0.03)+"px";
     })
 
-    // Pomeri GAMBLE labelu i bet-wrapper iznad .gamble-info
-const gambleLabel = document.querySelector(".gamble-label");
-
-
-
-// Skaliranje teksta
-gambleLabel.style.fontSize = (baseForAll * 0.03) + "px";
 
 const amountEl = document.querySelector(".gamble-amount");
 amountEl.style.fontSize = (baseForAll * 0.035) + "px";

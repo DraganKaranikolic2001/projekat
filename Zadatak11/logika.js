@@ -3,14 +3,9 @@ const slika=document.getElementById("pictureGamble");
  const maxAttempts=5;
 let currentAttempts=0;
 
-
-
-
 let amount = 500;
 
-
 let i =0;
-
 
 const betAmount = [20,40,60,80,100];
 
@@ -133,9 +128,6 @@ function clickTakeWin(){
     amount+=gambleAmount;
     AudioHandler.stop('gif');
     AudioHandler.play('take');
-    // document.getElementById("gamble-amount-to-win").textContent = "0.00";
-    // document.getElementById("gamble-attempts").textContent = "0";
-    // document.getElementById("gamble-to-win").textContent="0.00";
     alert("Svaka cast! Zaradio si: " + gambleAmount + " Eura!" +"u kasi imas : "+ amount);
     resetPage();
 }
@@ -205,7 +197,8 @@ function gamble(playerChoice){
     if(playerChoice===result){
         gambleAmount*=2;
         currentAttempts++;
-
+        resetAnim();
+        animate();
         console.log( "Amount origin, odnosno koliko se skida ako se pogresi: " + amountOrigin);
         console.log("Amount: " + amount);
         console.log( "Gamble amount: " + gambleAmount);
@@ -217,7 +210,6 @@ function gamble(playerChoice){
         console.log(currentAttempts);
         document.getElementById("win-button").classList.remove("hidden");
         AudioHandler.play('win');
-        // playSound('win');
         if(currentAttempts>=maxAttempts){
             collectWinnings(gambleAmount);
         }
@@ -236,16 +228,11 @@ function gamble(playerChoice){
         
             setTimeout(()=>location.reload(),2500);
         }
-        // document.getElementById('gamble-amount-to-win').textContent=parseFloat(gambleAmount).toFixed(2);
-        // document.getElementById("gamble-attempts").textContent=0;
-        // document.getElementById("gamble-to-win").textContent=parseFloat(gambleAmount).toFixed(2);
         AudioHandler.play('lose');
-        // playSound('lose');
+        //Drugi nacin za reset page kako bi zvuk gifa krenuo kad se promasi
         // setTimeout(()=>{
         //     resetPage();
         // },600);
-
-
     }
 }
 
@@ -319,13 +306,43 @@ function updateHistory(card) {
     });
 }*/
 
+function easeOutBounce(t,b,c,d) { 
+    if((t/=d)<(1/2.75)){
+        return c*(7.5625*t*t)+b;
+    }
+    else if(t<(2/2.75)){
+        return c*(7.5625*(t-=(1.5/2.75))*t+.75)+b;
+    }
+    else if(t<(2.5/2.75)){
+        return c*(7.5625*(t-=(2.25/2.75))*t+.9375)+b;
+    }
+    else{
+        return c*(7.5625*(t-=(2.625/2.75))*t+.984375)+b;
+    }
+}
+
+var start = -300;
+var end = 10;
+var frameRate=60/1000;
+var duration = 1000;
+var currentStep = 0;
+var newY=0;
+var slika1 = document.querySelector(".logo-img");
+function resetAnim(){
+    newY=0;
+    currentStep=0;
+}
+function animate(){
+    currentStep++;
+    newY=easeOutBounce(currentStep,start,end-start,frameRate*duration);
+    slika1.style.transform='translateY('+ newY+ 'px)';
+    if(currentStep>=frameRate*duration)
+        return;
+    requestAnimationFrame(animate);
+}
 
 
-// napraviti koliko zeli bet da ima u smislu kruzic sa minusom i plusom dokle moze da ide, napraviti niz za svim betovima mogucim 10,20,40,50,100
-//kad dodje do max beta da se vrati na min bet u smislu da bude kruzno
 
-
-//kad se pokrene igra da uvek ima 5k kredita, gamble amount je 50 i da se svaki put kad il izgubi il dodje do 5 da mu se doda/oduzme vrednost i nastavi igra
-
-
-//u  portrati za info deo dodati outline
+//sprite animacija preko requestAnimation , animacija za kartu , iluzija okretanje(her o karta kod dev kad se okrece),
+//sredjivanje css, outline u labelice plus i minus na gamble
+//opcija za vise jezika , napravi popup za jezik,zvuk i info 
