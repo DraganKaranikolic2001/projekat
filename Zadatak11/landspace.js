@@ -7,7 +7,8 @@ function resizeLandscape(){
 
     const modalWrapper= document.querySelector(".modal-wrapper");
     const modal = document.getElementById('modal');
-
+    const modalStn = document.getElementById("myModal");
+    const modal1 = document.querySelector(".modal-content");
     const ratio=16/9;
 
     if((width/height)<ratio){
@@ -16,6 +17,9 @@ function resizeLandscape(){
 
         modalWrapper.style.width=width+"px";
         modalWrapper.style.height=(width/ratio)+"px";
+
+        modalStn.style.width=width+"px";
+        modalStn.style.height=(width/ratio)+"px";
     }
     else{
         glavniEl.style.height=height+"px";
@@ -23,13 +27,17 @@ function resizeLandscape(){
 
         modalWrapper.style.height=height+"px";
         modalWrapper.style.width=(height*ratio)+"px";
+
+        modalStn.style.height=height+"px";
+        modalStn.style.width=(height*ratio)+"px";
     }
     //Modalni prozor sa svim elementima
    
         modal.style.maxHeight=(modalWrapper.clientHeight*0.8)+ "px";
         modal.style.width=(modalWrapper.clientWidth*0.7)+ "px";
     
-   
+        modal1.style.maxHeight=(modalStn.clientHeight*0.8)+ "px";
+        modal1.style.maxWidth=(modalStn.clientWidth*0.5)+ "px";    
 
     const baseForModal = modalWrapper.clientHeight;
     const titleModal= document.getElementById("titleModal");
@@ -80,7 +88,7 @@ function resizeLandscape(){
     const muteBtn=document.getElementById("mutebtn");
     const IconElementsI=document.querySelectorAll("i");
     const IconSize=baseForAll*0.09;
-
+    const settingsBtn = document.getElementById("settingsBtn");
     IconElementsI.forEach(e=>{
         e.style.fontSize=(baseForAll*0.04)+"px";
     })
@@ -88,9 +96,21 @@ function resizeLandscape(){
     muteBtn.style.width=IconSize+"px";
     muteBtn.style.height=IconSize+"px";
 
+    settingsBtn.style.width=IconSize+"px";
+    settingsBtn.style.height=IconSize+"px";
+
     infoBtn.style.width=IconSize+"px";
     infoBtn.style.height=IconSize+"px";
+    //Za modal podesavnja delovi
+    const labelModal = document.getElementById("labelModal");
+    labelModal.style.fontSize=(baseForAll*0.04)+"px";
 
+    const languageBar = document.getElementById("language");
+    languageBar.style.minWidth=(baseForAll*0.15)+"px";
+    languageBar.style.minHeight=(baseForAll*0.05)+"px";
+
+    const closeButton = document.querySelector(".closeSettings");
+    closeButton.style.fontSize=(baseForAll*0.06)+"px";
     // const gambleLabel = document.querySelector(".gamble-label");
     // gambleLabel.style.fontSize=(baseForAll*0.04)+"px";
 

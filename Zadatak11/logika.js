@@ -98,7 +98,10 @@ resizeAndLoadEvents([
 function clickRed(){
     if(amount<amountOrigin || amount==0)
     {   
+       if(document.getElementById("language").value==="sr")
         alert("Smanji bet !!!");
+        else
+        alert("Lower bet !!!");
     }
     else{
         AudioHandler.stop('gif');
@@ -112,7 +115,10 @@ function clickRed(){
 function clickBlack(){
     if(amount<amountOrigin)
     {   
+        if(document.getElementById("language").value==="sr")
         alert("Smanji bet !!!");
+        else
+        alert("Lower bet !!!");
         
     }
     else{
@@ -138,6 +144,7 @@ window.addEventListener('DOMContentLoaded', function(){
     AudioHandler.init();
     modalWindow.Events();
     introHandler.introEvents();
+    ModalSetting.Events();
     AudioHandler.setMode('mute');
 
     console.log("Dostupni zvuci:", AudioHandler.sounds);
@@ -152,6 +159,13 @@ window.addEventListener('DOMContentLoaded', function(){
 
     this.document.getElementById("gamble-total").textContent=amount.toFixed(2);
     
+     const modal = document.getElementById("myModal");
+    const modalStyles = getComputedStyle(modal);
+
+    console.log("Je l' modal hidden?", modal.classList.contains("hidden"));
+    console.log("Modal display:", modalStyles.display);
+    console.log("Modal visibility:", modalStyles.visibility);
+    console.log("Modal dimensions:", modal.offsetWidth, modal.offsetHeight);
 })
 //-----------------------------------------------------------
 
@@ -218,8 +232,11 @@ function gamble(playerChoice){
     else{
         amount-=amountOrigin;
         if(amount==0)
-        {
+        {   
+            if(document.getElementById("language").value==="sr")
             alert("Nemas dovoljno novca, igrica se resetuje !!!");
+            else
+            alert("Not enought funds, game will restart");
             const blackout = document.getElementById("blackout");
             blackout.style.display = "block";
             setTimeout(() => {
@@ -341,8 +358,16 @@ function animate(){
     requestAnimationFrame(animate);
 }
 
+//----------------------------------------------------------------------------------
 
 
-//sprite animacija preko requestAnimation , animacija za kartu , iluzija okretanje(her o karta kod dev kad se okrece),
+//sprite animacija preko requestAnimation , animacija za kartu , iluzija okretanje(hero karta kod dev kad se okrece),
 //sredjivanje css, outline u labelice plus i minus na gamble
 //opcija za vise jezika , napravi popup za jezik,zvuk i info 
+
+
+// display none za setting modal nije radio dok nisam dodao
+//  important zasto? ne znam !!! odgovor jer prvo uzima display:flex pa zbog
+// toga, ali posto smo mu dodali atrbut important on ga overrajduje
+
+//

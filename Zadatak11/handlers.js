@@ -43,3 +43,37 @@ const introHandler={
 
 }
 //-------------------------------------------------
+const ModalSetting = { 
+    modalSettings : document.getElementById('myModal'),
+    openBtn : document.getElementById('settingsBtn'),
+    closeBtn : document.querySelector('.closeSettings'),
+
+    close() {
+        this.modalSettings.classList.add("hidden");
+    },
+    open(){
+        this.modalSettings.classList.remove('hidden');
+            if((window.innerWidth/window.innerHeight)>1)
+                {
+                    setTimeout(() => {
+                    resizeLandscape(); // sad ima dimenzije
+                    }, 10);
+   //Da nismo dodali setTimeout ne bi radilo jer kad on ucita stranicu 
+  // Modal nema vrednost jer je display none i ne renderuje ga, a posto
+  // smo stavili timeout on ima vremena da procita vrednosti i da ga resize-uje
+                }
+            else{
+                        setTimeout(() => {
+                        resizePortrait(); // sad ima dimenzije
+                    }, 10);
+                }
+    },
+    Events(){
+        this.openBtn.addEventListener("click",()=>this.open());
+        this.closeBtn.addEventListener("click",()=>this.close());
+        window.addEventListener("click",(e)=>{
+            if(e.target==this.modalSettings)
+                this.close();
+        })
+    }
+}
