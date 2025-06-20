@@ -190,24 +190,28 @@ function gamble(playerChoice){
     
     
 
-    const img=document.getElementById("gamble-gif");
-    img.src=resultCard.src;
+    const cardContainer = document.getElementById("flip-card");
+    const cardInner = document.getElementById("card-inner");
+    const frontImg = document.getElementById("card-front-img");
+    const backImg = document.getElementById("card-back-img");
 
+
+    backImg.src=resultCard.src;
+    console.log(backImg);
+    cardContainer.classList.add("flip");
+    
     updateHistory(resultCard);
     console.log(historyCards);
-     setTimeout(() => {
-        img.src = "images/gamble/redblack.gif";
-            AudioHandler.play('gif');
+        setTimeout(() => {
+        cardContainer.classList.remove("flip");
+         AudioHandler.play('gif');
+         frontImg.src = "images/gamble/redblack.gif";
         if(playerChoice!==result){
             AudioHandler.stop('gif');
             resetPage();
         }
             
-    }, 500);
-    
-     
-   
-
+    }, 900);
     if(playerChoice===result){
         gambleAmount*=2;
         currentAttempts++;
@@ -339,7 +343,7 @@ function easeOutBounce(t,b,c,d) {
 }
 
 var start = -300;
-var end = 10;
+var end = 0;
 var frameRate=60/1000;
 var duration = 1000;
 var currentStep = 0;
@@ -357,6 +361,27 @@ function animate(){
         return;
     requestAnimationFrame(animate);
 }
+
+// const canvas= document.getElementById("canvas1");
+// const ctx=canvas.getContext('2d');
+
+// const CANVAS_WIDTH=canvas.width;
+// const CANVAS_HEIGHT=canvas.height;
+
+// console.log(CANVAS_HEIGHT);
+// console.log(CANVAS_WIDTH);
+
+// const SpriteImage= new Image();
+
+// SpriteImage.src="images/logo-anim.png";
+
+// function animate(){
+//     ctx.clearRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
+//     ctx.drawImage(SpriteImage,0,0);
+//     requestAnimationFrame(animate);
+// }
+// animate();
+ 
 
 //----------------------------------------------------------------------------------
 
