@@ -146,6 +146,7 @@ window.addEventListener('DOMContentLoaded', function(){
     introHandler.introEvents();
     ModalSetting.Events();
     AudioHandler.setMode('mute');
+    drawStaticLogo();
 
     console.log("Dostupni zvuci:", AudioHandler.sounds);
 
@@ -191,7 +192,6 @@ function gamble(playerChoice){
     
 
     const cardContainer = document.getElementById("flip-card");
-    const cardInner = document.getElementById("card-inner");
     const frontImg = document.getElementById("card-front-img");
     const backImg = document.getElementById("card-back-img");
 
@@ -215,8 +215,8 @@ function gamble(playerChoice){
     if(playerChoice===result){
         gambleAmount*=2;
         currentAttempts++;
-        resetAnim();
-        animate();
+        startCanvasAnimation(1000);
+        canvas.src="images/logo.png";
         console.log( "Amount origin, odnosno koliko se skida ako se pogresi: " + amountOrigin);
         console.log("Amount: " + amount);
         console.log( "Gamble amount: " + gambleAmount);
@@ -342,46 +342,169 @@ function easeOutBounce(t,b,c,d) {
     }
 }
 
-var start = -300;
-var end = 0;
-var frameRate=60/1000;
-var duration = 1000;
-var currentStep = 0;
-var newY=0;
-var slika1 = document.querySelector(".logo-img");
-function resetAnim(){
-    newY=0;
-    currentStep=0;
-}
-function animate(){
-    currentStep++;
-    newY=easeOutBounce(currentStep,start,end-start,frameRate*duration);
-    slika1.style.transform='translateY('+ newY+ 'px)';
-    if(currentStep>=frameRate*duration)
-        return;
-    requestAnimationFrame(animate);
-}
-
-// const canvas= document.getElementById("canvas1");
-// const ctx=canvas.getContext('2d');
-
-// const CANVAS_WIDTH=canvas.width;
-// const CANVAS_HEIGHT=canvas.height;
-
-// console.log(CANVAS_HEIGHT);
-// console.log(CANVAS_WIDTH);
-
-// const SpriteImage= new Image();
-
-// SpriteImage.src="images/logo-anim.png";
-
+// var start = -300;
+// var end = 0;
+// var frameRate=60/1000;
+// var duration = 1000;
+// var currentStep = 0;
+// var newY=0;
+// var slika1 = document.querySelector(".logo-img");
+// function resetAnim(){
+//     newY=0;
+//     currentStep=0;
+// }
 // function animate(){
-//     ctx.clearRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
-//     ctx.drawImage(SpriteImage,0,0);
+//     currentStep++;
+//     newY=easeOutBounce(currentStep,start,end-start,frameRate*duration);
+//     slika1.style.transform='translateY('+ newY+ 'px)';
+//     if(currentStep>=frameRate*duration)
+//         return;
 //     requestAnimationFrame(animate);
 // }
+
+let animationRunning=false;
+let animationID=null;
+
+const canvas= document.getElementById("canvas1");
+const ctx=canvas.getContext('2d');
+
+
+const SpriteImage= new Image();
+
+SpriteImage.src="images/sprite.png";
+
+canvas.width=890;
+canvas.height=100;
+
+const CANVAS_WIDTH=canvas.width;
+const CANVAS_HEIGHT=canvas.height;
+
+console.log("canvas width:",canvas.width);
+console.log(CANVAS_WIDTH);
+
+
+// function animate(timmy){
+//     if(timmy){
+//        diff = timmy-number;
+//         // console.log("frame",diff);
+//         number=timmy;
+//     }
+//     if(!animationRunning)return false;
+//     ctx.clearRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
+//     ctx.fillRect(0,0,1,1);
+//     //ctx.drawImage(SpriteImage,sx,sy,sw,sh,dx,dy,dw,dh);
+//     // console.log(SpriteWidth);
+//     // console.log(SpriteHeight);
+//     // console.log("canvas"+CANVAS_WIDTH);
+//     // console.log("canvas heighy"+CANVAS_HEIGHT);
+//     // update(diff);
+//     console.log(diff);
+//     ctx.drawImage(SpriteImage,0,frameRate*SpriteHeight,SpriteWidth,SpriteHeight,0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
+    
+  
+//     if (gameFrame % staggerFrame === 2) {
+//         frameRate = (frameRate + 1) % 30; // animacija ima 30 frame-ova
+//     }
+//     gameFrame++;
+    
+//     animationID=requestAnimationFrame(animate);
+// }
+
+const SpriteWidth=SpriteImage.width;
+const SpriteHeight=SpriteImage.height/30;
+let frameRate=0;
+let gameFrame=0;
+let number = 0;
+const staggerFrame=3;
+let diff=null;
+let x = 0;
+let frameTimer = 0; // piksela u sekundi
+const frameInterval= 1000/30;
+
+function animate(timmy){
+    if(timmy){
+       diff = timmy-number;
+        // console.log("frame",diff);
+        number=timmy;
+    }
+    if(!animationRunning)return false;
+    ctx.clearRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
+    ctx.fillRect(0,0,1,1);
+    //ctx.drawImage(SpriteImage,sx,sy,sw,sh,dx,dy,dw,dh);
+    console.log(SpriteWidth);
+    console.log(SpriteHeight);
+    console.log("canvas"+CANVAS_WIDTH);
+    console.log("canvas heighy"+CANVAS_HEIGHT);
+  
+    frameTimer += diff;
+    if (frameTimer >= frameInterval) {
+        frameRate = (frameRate + 1) % 30; 
+        // console.log(frameTimer);
+        frameTimer = 0;
+        
+    }
+    ctx.drawImage(SpriteImage,0,frameRate*SpriteHeight,SpriteWidth,SpriteHeight,0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
+    
+  
+    // if (gameFrame % staggerFrame === 1) {
+    //     frameRate = (frameRate + 1) % 30; 
+    // }
+    // gameFrame++;
+    
+    animationID=requestAnimationFrame(animate);
+}
+
+//time managment kod animacija , u smislu da se animacija ne pozove prerano 
+
+
+// function animate(){
+//     if(!animationRunning)return false;
+//     ctx.clearRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
+//     //ctx.drawImage(SpriteImage,sx,sy,sw,sh,dx,dy,dw,dh);
+    
+
+//     const scale = CANVAS_HEIGHT/SpriteHeight;
+
+//     const scaledWidth= SpriteWidth*scale;
+//     const offSetX=(CANVAS_WIDTH-scaledWidth)/2;
+
+//     ctx.drawImage(SpriteImage,0,frameRate*SpriteHeight,SpriteImage.width,SpriteHeight,offSetX,0,scaledWidth,CANVAS_HEIGHT);
+    
+//     if(gameFrame%staggerFrame==0){
+//         if(frameRate<30) frameRate++;
+//         else frameRate=0;
+//     }
+//     gameFrame++;
+    
+//     animationID=requestAnimationFrame(animate);
+// }
+
+
+
+
+function startCanvasAnimation(duration) {
+    animationRunning = true;
+    animate(); 
+
+    setTimeout(() => {
+        animationRunning = false;
+        cancelAnimationFrame(animationID);
+        drawStaticLogo(); 
+    }, duration); 
+}
+
 // animate();
- 
+ function drawStaticLogo() {
+    const logoImg = new Image();
+    logoImg.src = "images/static.png";
+    logoImg.onload = () => {
+        ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+        ctx.drawImage(logoImg, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+        console.log(logoImg.width);
+        console.log(logoImg.height);
+    };
+}
+
 
 //----------------------------------------------------------------------------------
 

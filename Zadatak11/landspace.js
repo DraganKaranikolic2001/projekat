@@ -32,12 +32,19 @@ function resizeLandscape(){
         modalStn.style.width=(height*ratio)+"px";
     }
     //Modalni prozor sa svim elementima
-   
-        modal.style.maxHeight=(modalWrapper.clientHeight*0.8)+ "px";
-        modal.style.width=(modalWrapper.clientWidth*0.7)+ "px";
     
-        modal1.style.maxHeight=(modalStn.clientHeight*0.8)+ "px";
-        modal1.style.maxWidth=(modalStn.clientWidth*0.5)+ "px";    
+    // const divIcon=document.querySelector(".div-canvas");
+    // divIcon.style.width=(glavniEl.clientWidth*0.7)+"px";
+    // divIcon.style.height=(glavniEl.clientHeight*0.8)+"px";
+
+    const canvas= document.getElementById("canvas1");
+    canvas.style.width=(glavniEl.clientWidth*0.7)+"px";
+
+    modal.style.maxHeight=(modalWrapper.clientHeight*0.8)+ "px";
+    modal.style.width=(modalWrapper.clientWidth*0.7)+ "px";
+    
+    modal1.style.maxHeight=(modalStn.clientHeight*0.8)+ "px";
+    modal1.style.maxWidth=(modalStn.clientWidth*0.5)+ "px";    
 
     const baseForModal = modalWrapper.clientHeight;
     const titleModal= document.getElementById("titleModal");
@@ -106,8 +113,8 @@ function resizeLandscape(){
     labelModal.style.fontSize=(baseForAll*0.04)+"px";
 
     const languageBar = document.getElementById("language");
-    languageBar.style.minWidth=(baseForAll*0.15)+"px";
-    languageBar.style.minHeight=(baseForAll*0.05)+"px";
+    languageBar.style.width=(baseForAll*0.2)+"px";
+    languageBar.style.height=(baseForAll*0.08)+"px";
 
     const closeButton = document.querySelector(".closeSettings");
     closeButton.style.fontSize=(baseForAll*0.06)+"px";

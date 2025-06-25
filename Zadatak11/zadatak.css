@@ -89,13 +89,14 @@ body{
   transform: rotateY(-180deg);
 }
 #canvas1{
-    border: 2px solid black;
+  
     position: absolute;
-    top: 2%;
-    right: 8%;
-    width: 35%;
-    height: 20%;
-
+    top: 5%;
+    right: -10%;
+    max-height: 100px;
+    max-width: 890px;
+    margin: none;
+    padding: none;
 }
 
 .gamble-box{
@@ -241,8 +242,6 @@ body{
     color: red;
 }
 #modal p {
-    /* font-size: 1rem; */
-    /* margin-bottom: 1.5rem; */
     color: white;
     max-width: 500px;
 }
@@ -429,6 +428,26 @@ body{
   right: 2%;
   cursor: pointer;
 }
+.containerForLanguage select {
+  background-color: #2d2d2d;
+  color: #ffffff;
+  border: 1px solid #444;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 15px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.containerForLanguage select:hover {
+  border-color: #ece4e4;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+.containerForLanguage select:focus {
+  outline: none;
+  border-color: #bbb;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+}
 
 
 /* MOBILE*/
@@ -526,6 +545,9 @@ body{
     }
     .containerForLanguage{
         width: 60%;
+    }
+    #canvas1{
+        display: none;
     }
     
 }
