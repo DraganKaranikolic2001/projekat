@@ -16,8 +16,9 @@ let data = {
        p4: "-If the guess is <strong>wrong</strong>, the player loses <strong>the entire winnings</strong> from the previous game.",
        p5: "-A maximum of <strong>5 successful doubling attempts</strong> is allowed per single win.",
        p6: "-The player can choose to stop and keep the current winnings at any time.",
-       p7: "<em>Play responsibly. One wrong guess means losing the entire winnings.</em>"
-
+       p7: "<em>Play responsibly. One wrong guess means losing the entire winnings.</em>",
+       h2: "Game Rules - Double or Nothing: Red or Black"
+    
 
     },
     sr: {
@@ -37,7 +38,8 @@ let data = {
         p4: "-Ako <strong>promaši</strong>, gubi <strong>ceo dobitak</strong> iz prethodne igre.",
         p5: "-Maksimalno <strong>5 uspešnih pokušaja</strong> duplanja po jednom dobitku.",
         p6: "-Igrač može odustati i zadržati trenutni dobitak u bilo kom trenutku.",
-        p7: "<em>Igrajte odgovorno. Jedan pogrešan pokušaj znači gubitak kompletnog dobitka.</em>"
+        p7: "<em>Igrajte odgovorno. Jedan pogrešan pokušaj znači gubitak kompletnog dobitka.</em>",
+        h2: "Pravila igre - Duplo ili ništa: Crveno ili crno"
 
     }
 }
@@ -60,6 +62,7 @@ let langs = document.getElementById("language");
     p5=document.getElementById("p5");
     p6=document.getElementById("p6");
     p7=document.getElementById("p7");
+    h2=document.getElementById("titleModal");
 
 langs.addEventListener("change",() =>{
     let selectLang= langs.value;
@@ -80,9 +83,10 @@ langs.addEventListener("change",() =>{
     p2.innerHTML=data[selectLang].p2;
     p3.innerHTML=data[selectLang].p3;
     p4.innerHTML=data[selectLang].p4;
-    p5.innerHTML=data[selectLang].p6;
+    p5.innerHTML=data[selectLang].p5;
     p6.innerHTML=data[selectLang].p6;
     p7.innerHTML=data[selectLang].p7;
+    h2.innerHTML=data[selectLang].h2;
     // for (let i = 1; i <= 7; i++) {
     // const element = document.getElementById("p" + i);
     // const key = "p" + i;

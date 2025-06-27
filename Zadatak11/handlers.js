@@ -58,9 +58,9 @@ const ModalSetting = {
                     setTimeout(() => {
                     resizeLandscape(); // sad ima dimenzije
                     }, 10);
-   //Da nismo dodali setTimeout ne bi radilo jer kad on ucita stranicu 
-  // Modal nema vrednost jer je display none i ne renderuje ga, a posto
-  // smo stavili timeout on ima vremena da procita vrednosti i da ga resize-uje
+                //Da nismo dodali setTimeout ne bi radilo jer kad on ucita stranicu 
+                // Modal nema vrednost jer je display none i ne renderuje ga, a posto
+                // smo stavili timeout on ima vremena da procita vrednosti i da ga resize-uje
                 }
             else{
                         setTimeout(() => {
